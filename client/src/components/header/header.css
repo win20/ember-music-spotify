@@ -1,0 +1,128 @@
+#HeaderContainer {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  align-items: center;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.search-container {
+  margin: 0 auto;
+  padding-left: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#searchIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.searchBar {
+  padding: 12px 15px;
+  border-radius: 25px;
+  border: none;
+  width: 300px;
+  background-color: #eaeaea;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 4px;
+}
+
+.searchBar:focus {
+  outline: none;
+}
+
+.searchButton {
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+  padding: 0 15px;
+  margin-left: 10px;
+  background-color: #ff5757;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 4px;
+}
+.searchButton:hover {
+  cursor: pointer;
+}
+
+.header-links {
+  position: absolute;
+  right: 0;
+  margin-right: 8%;
+}
+
+.header-links a {
+  text-decoration: none;
+  color: black;
+}
+
+#login-link {
+  padding-right: 50px;
+  position: relative;
+}
+
+#login-link::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 45%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff5757;
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform 0.3s ease;
+}
+
+#login-link:hover::before {
+  transform: scaleX(1);
+}
+
+#register-link {
+  position: relative;
+  background-color: #1e1e1e;
+  font-weight: 700;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 25px;
+
+  transition: color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+}
+
+#register-link:hover {
+  /* color: #1e1e1e; */
+  background-color: #ff5757;
+}
+
+#recommendations-link {
+  margin-right: 50px;
+}
+
+#recommendations-link::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 38%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff5757;
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform 0.3s ease;
+}
+
+#recommendations-link:hover::before {
+  transform: scaleX(1);
+}

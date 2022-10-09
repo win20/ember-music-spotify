@@ -18,11 +18,8 @@ const serialize = function (obj) {
   return str.join('&');
 };
 
-app.on('listening', function () {
-  console.log('App is on');
-});
-
-const getSpotifyToken = () => {
+let spotify_access_token = '';
+exports.getSpotifyToken = () => {
   const promise = axios.post(
     'https://accounts.spotify.com/api/token',
     serialize({
@@ -35,30 +32,39 @@ const getSpotifyToken = () => {
     }
   );
 
-  const access_token = promise.then((response) => response.data.access_token);
-  return access_token;
+  access_token = promise.then((response) => response.data.access_token);
+  access_token.then((response) => {
+    spotify_access_token = response;
+  });
 };
 
 exports.getTrack = (req, res) => {
-  getSpotifyToken().then((data) => {
-    axios
-      .get('https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl', {
-        headers: { Authorization: 'Bearer ' + data },
-      })
-      .then((response) => {
-        res.send(response.data);
-      });
-  });
+  const trackToGet = req.query.track;
+  axios
+    .get(`https://api.spotify.com/v1/tracks/${trackToGet}`, {
+      headers: { Authorization: 'Bearer ' + spotify_access_token },
+    })
+    .then((response) => {
+      res.send(response.data);
+    });
 };
 
 exports.getFeaturedPlaylists = (req, res) => {
-  getSpotifyToken().then((data) => {
-    axios
-      .get('https://api.spotify.com/v1/browse/featured-playlists', {
-        headers: { Authorization: 'Bearer ' + data },
-      })
-      .then((response) => {
-        res.send(response.data);
-      });
-  });
+  // getSpotifyToken().then((data) => {
+  //   axios
+  //     .get('https://api.spotify.com/v1/browse/featured-playlists', {
+  //       headers: { Authorization: 'Bearer ' + data },
+  //     })
+  //     .then((response) => {
+  //       res.send(response.data);
+  //     });
+  // });
+
+  axios
+    .get(`https://api.spotify.com/v1/browse/featured-playlists`, {
+      headers: { Authorization: 'Bearer ' + spotify_access_token },
+    })
+    .then((response) => {
+      res.send(response.data);
+    });
 };
