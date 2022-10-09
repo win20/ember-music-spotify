@@ -50,16 +50,6 @@ exports.getTrack = (req, res) => {
 };
 
 exports.getFeaturedPlaylists = (req, res) => {
-  // getSpotifyToken().then((data) => {
-  //   axios
-  //     .get('https://api.spotify.com/v1/browse/featured-playlists', {
-  //       headers: { Authorization: 'Bearer ' + data },
-  //     })
-  //     .then((response) => {
-  //       res.send(response.data);
-  //     });
-  // });
-
   axios
     .get(`https://api.spotify.com/v1/browse/featured-playlists`, {
       headers: { Authorization: 'Bearer ' + spotify_access_token },
