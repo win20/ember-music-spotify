@@ -1,8 +1,8 @@
 import './App.css';
-import Header from './components/header/Header';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import url from 'url';
+
+import Home from 'views/home/Home';
 
 function App() {
   const [test, setTest] = useState('');
@@ -26,9 +26,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <button onClick={testGetTrack}>Test Get Track</button>
-      <h1>{test}</h1>
+      <Home />
     </div>
   );
 }

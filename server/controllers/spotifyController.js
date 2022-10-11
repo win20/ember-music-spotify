@@ -58,3 +58,13 @@ exports.getFeaturedPlaylists = (req, res) => {
       res.send(response.data);
     });
 };
+
+exports.getDailySong = (req, res) => {
+  axios
+    .get(
+      'https://hgg5zyvi7f.execute-api.eu-west-2.amazonaws.com/prod/getDailySong'
+    )
+    .then((response) => {
+      res.send(response.data);
+    });
+};
