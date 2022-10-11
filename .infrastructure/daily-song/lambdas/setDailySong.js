@@ -1,6 +1,10 @@
 const axios = require('axios');
 
-let spotify_access_token = '';
+const AWS = require('aws-sdk');
+AWS.config.update({ region: process.env.region });
+const dynamo = new AWS.DynamoDB.DocumentClient({
+  region: process.env.region,
+});
 
 const serialize = function (obj) {
   var str = [];
@@ -13,6 +17,24 @@ const serialize = function (obj) {
 };
 
 exports.handler = async function (event) {
+  // Delete items in DB
+  const params = {
+    TableName: process.env.dailySongTable,
+  };
+  const items = await dynamo.scan(params).promise();
+
+  if (items.Items.length > 0) {
+    const itemToDeleteId = items.Items[0].id;
+    let params2 = {
+      TableName: process.env.dailySongTable,
+      Key: {
+        id: itemToDeleteId,
+      },
+    };
+
+    await dynamo.delete(params2).promise();
+  }
+
   // Call Spotify API to get access token
   let axiosResponse = await axios.post(
     'https://accounts.spotify.com/api/token',
@@ -57,9 +79,19 @@ exports.handler = async function (event) {
 
   const dailyTrack = getTrackResponse.data.items[randNumTrack];
 
+  await dynamo
+    .put({
+      TableName: process.env.dailySongTable,
+      Item: {
+        id: Date.now().toString(),
+        track: dailyTrack,
+      },
+    })
+    .promise();
+
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'application/json' },
-    body: dailyTrack,
+    body: JSON.stringify(dailyTrack),
   };
 };

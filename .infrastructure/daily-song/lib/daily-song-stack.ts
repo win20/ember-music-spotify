@@ -22,7 +22,6 @@ export class DailySongStack extends Stack {
       handler: 'setDailySong.handler',
       environment: {
         region: process.env.REGION as string,
-        deezerChartUrl: process.env.DEEZER_CHART_URL as string,
         dailySongTable: process.env.DAILY_SONG_TABLE as string,
       },
     });
