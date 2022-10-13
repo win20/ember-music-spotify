@@ -1,17 +1,18 @@
 import './homepage-player.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import infoIcon from 'assets/icons/info.png';
 import playIcon from 'assets/icons/play-icon.png';
 import pauseIcon from 'assets/icons/pause-icon.png';
+import LoadingScreen from 'components/loading-screen/LoadingScreen';
 
-const HomepagePlayer = () => {
+const HomepagePlayer = (props) => {
   const [songTitle, setSongTitle] = useState('');
   const [songArtist, setSongArtist] = useState('');
   const [songCover, setSongCover] = useState('');
   const [audioSrc, setAudioSrc] = useState('');
   const [songUrl, setSongUrl] = useState('');
   const progressContainer = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchDailySong();
@@ -29,6 +30,9 @@ const HomepagePlayer = () => {
         );
         setAudioSrc(response.data['track']['track']['preview_url']);
         setSongUrl(response.data['track']['track']['external_urls']['spotify']);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 400);
       });
   };
 
@@ -63,45 +67,55 @@ const HomepagePlayer = () => {
 
   return (
     <div id="HomepagePlayer">
-      <h1>Featured Song</h1>
-      <div id="songDetails">
-        <h3>{songTitle}</h3>
-        <p>{songArtist}</p>
-      </div>
-      <img id="songCover" src={songCover} alt="" />
-      <audio src={audioSrc} id="audio" onTimeUpdate={updateProgress}></audio>
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <div>
+          <h1>Featured Song</h1>
+          <div id="songDetails">
+            <h3>{songTitle}</h3>
+            <p>{songArtist}</p>
+          </div>
+          <img id="songCover" src={songCover} alt="" />
+          <audio
+            src={audioSrc}
+            id="audio"
+            onTimeUpdate={updateProgress}
+          ></audio>
 
-      <div className="media-controls">
-        {playState ? (
-          <button className="media-btn" onClick={pauseSong}>
-            <img src={pauseIcon} alt="pause" />
-          </button>
-        ) : (
-          <button className="media-btn" onClick={playSong}>
-            <img src={playIcon} alt="play" />
-          </button>
-        )}
+          <div className="media-controls">
+            {playState ? (
+              <button className="media-btn" onClick={pauseSong}>
+                <img src={pauseIcon} alt="pause" />
+              </button>
+            ) : (
+              <button className="media-btn" onClick={playSong}>
+                <img src={playIcon} alt="play" />
+              </button>
+            )}
 
-        <div className="progressAndLink"></div>
-        <div
-          ref={progressContainer}
-          className="progress-container"
-          onClick={setProgress}
-        >
-          <div className="progress"></div>
+            <div className="progressAndLink"></div>
+            <div
+              ref={progressContainer}
+              className="progress-container"
+              onClick={setProgress}
+            >
+              <div className="progress"></div>
+            </div>
+
+            <div className="linksContainer">
+              <a
+                href={songUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="deezer-btn"
+              >
+                Full song on Spotify
+              </a>
+            </div>
+          </div>
         </div>
-
-        <div className="linksContainer">
-          <a
-            href={songUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="deezer-btn"
-          >
-            Full song on Spotify
-          </a>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

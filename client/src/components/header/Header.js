@@ -5,7 +5,9 @@ import 'components/header/header.css';
 const Header = () => {
   return (
     <div id="HeaderContainer">
-      <img className="logo" src={logoLight} alt="" />
+      <a href="/" className="logoHomeLink">
+        <img className="logo" src={logoLight} alt="" />
+      </a>
 
       <div className="search-container">
         <form action="">

@@ -1,12 +1,12 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import Recommendations from 'views/recommendations/Recommendations';
 
 import Home from 'views/home/Home';
 
 function App() {
-  const [test, setTest] = useState('');
-
   useEffect(() => {
     getSpotifyAccessToken();
   }, []);
@@ -15,18 +15,14 @@ function App() {
     await axios.get(`http://localhost:3001/spotify`);
   };
 
-  const testGetTrack = async () => {
-    await axios
-      .get(`http://localhost:3001/spotify/getFeaturedPlaylists`)
-      .then((response) => {
-        setTest(response.data.playlists.items[0].name);
-        console.log(response.data.playlists);
-      });
-  };
-
   return (
     <div className="App">
-      <Home />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/recommendations" element={<Recommendations />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
