@@ -68,3 +68,13 @@ exports.getDailySong = (req, res) => {
       res.send(response.data);
     });
 };
+
+exports.getGenresList = (req, res) => {
+  axios
+    .get('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+      headers: { Authorization: 'Bearer ' + spotify_access_token },
+    })
+    .then((response) => {
+      res.send(response.data);
+    });
+};

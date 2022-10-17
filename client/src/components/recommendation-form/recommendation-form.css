@@ -1,0 +1,133 @@
+.recommendationFormContainer {
+  float: left;
+  text-align: left;
+  margin-left: 8vw;
+  margin-top: 50px;
+}
+
+.recommendationForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.recommendationFormContainer h3 {
+  font-size: 32px;
+  margin-bottom: 0;
+}
+#subTitle {
+  color: #626262;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+#genreSelect {
+  width: 265px;
+  height: 45px;
+  border-radius: 20px;
+  padding: 0 7px;
+  border: none;
+  background-color: rgba(173, 173, 173, 0.16);
+}
+
+.dd-wrapper {
+  margin-top: 50px;
+}
+
+.dd-label {
+  margin-bottom: 5px;
+  margin-left: 13px;
+}
+
+.dd-header {
+  background-color: rgba(173, 173, 173, 0.16);
+  padding: 10px 15px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  color: #626262;
+}
+
+.dd-header:hover {
+  cursor: pointer;
+  background-color: rgba(150, 150, 150, 0.16);
+}
+
+.dd-arrow {
+  width: 18px;
+  height: 20px;
+}
+
+.dd-list {
+  margin-top: -10px;
+  position: absolute;
+  width: 360px;
+}
+
+.dd-list ul {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  padding: 0px;
+  list-style: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+}
+
+.dd-list ul li {
+  padding: 8px 15px;
+  color: #626262;
+}
+
+.dd-list ul li:first-child {
+  border-radius: 20px 20px 0 0;
+}
+
+.dd-list ul li:last-child {
+  border-radius: 0 0 20px 20px;
+}
+
+.dd-list ul li:hover {
+  background-color: #dcdcdc;
+  cursor: pointer;
+}
+
+.recommendationsForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.recommendationsForm label {
+  margin-top: 30px;
+  margin-bottom: 2px;
+}
+
+.recommendationsForm input {
+  background-color: #f2f2f2;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: none;
+  height: 20px;
+}
+
+.recommendationsForm button {
+  margin-top: 30px;
+  width: 80px;
+  background-color: #1e1e1e;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 9px 0;
+}
+
+.recommendationsForm button:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+}
+
+.recommendationsForm {
+  margin-top: 5px;
+}

@@ -1,0 +1,51 @@
+.PlaylistRecommendations {
+  margin-left: 8vw;
+  margin-top: 50px;
+  text-align: left;
+  padding-bottom: 75px;
+}
+
+.PlaylistRecommendations h3 {
+  font-size: 28px;
+}
+
+/* .PlaylistRecommendations .formComponents {
+  display: flex;
+  flex-direction: columns;
+} */
+
+.playlistRecommendationsForms label,
+.playlistRecommendationsForms input {
+  display: block;
+}
+
+.playlistRecommendationsForms input {
+  background-color: #f2f2f2;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: none;
+  height: 20px;
+  margin-top: 5px;
+  width: 300px;
+}
+
+.playlistRecommendationsForms button {
+  background-color: #1e1e1e;
+  color: white;
+  border: none;
+  width: 80px;
+  border-radius: 20px;
+  font-size: 16px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.playlistRecommendationsForms button:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+}
+
+.playlistRecommendationsForms div {
+  display: flex;
+  align-items: center;
+}

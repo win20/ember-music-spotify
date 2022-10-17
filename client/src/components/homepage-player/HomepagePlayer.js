@@ -22,7 +22,6 @@ const HomepagePlayer = (props) => {
     await axios
       .get(`http://localhost:3001/spotify/getDailySong`)
       .then((response) => {
-        console.log(response.data);
         setSongTitle(response.data['track']['track']['name']);
         setSongArtist(response.data['track']['track']['artists'][0]['name']);
         setSongCover(
