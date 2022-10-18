@@ -23,7 +23,6 @@ const Recommendations = () => {
           className="recommendationsForms"
         >
           <RecommendationForm />
-          <PlaylistRecommendations />
         </div>
       </div>
     </div>

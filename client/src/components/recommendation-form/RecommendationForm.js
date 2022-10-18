@@ -1,5 +1,5 @@
 import 'components/recommendation-form/recommendation-form.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import downArrow from 'assets/icons/down-arrow.png';
 import axios from 'axios';
 
@@ -85,6 +85,7 @@ const RecommendationForm = () => {
     musicGenresList[0].title
   );
   const [formValidationMessage, setFormValidationMessage] = useState(null);
+  const [songsList, setSongsList] = useState(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -96,14 +97,58 @@ const RecommendationForm = () => {
     }
   });
 
-  const handleSubmit = (event) => {
+  const checkSpecailChars = (str) => {
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return specialChars.test(str);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let genre = selectedMusicGenre;
+    let artist = document.querySelector('#artistInput').value;
+    let song = document.querySelector('#songInput').value;
 
     if (selectedMusicGenre === musicGenresList[0].title) {
       setFormValidationMessage('Please select a music genre');
+    } else if (checkSpecailChars(artist) || checkSpecailChars(song)) {
+      setFormValidationMessage('Special characters are not allowed');
     } else {
       setFormValidationMessage(null);
     }
+
+    let artistId;
+    await axios
+      .get(`http://localhost:3001/spotify/searchItem`, {
+        params: { search: artist, searchType: 'artist' },
+      })
+      .then((response) => {
+        // artistId = response.data.artists.items[0].id;
+        // console.log(response.data.artists.items[0].id);
+        console.log(response.data);
+      });
+
+    // let songId;
+    // await axios
+    //   .get(`http://localhost:3001/spotify/searchItem`, {
+    //     params: { song, searchType: 'track' },
+    //   })
+    //   .then((response) => {
+    //     // songId = response.data.artists.items[0].id;
+    //     console.log(response.data);
+    //   });
+
+    // await axios
+    //   .get(`http://localhost:3001/spotify/getRecommendations`, {
+    //     params: {
+    //       genre,
+    //       artistId,
+    //       song,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   });
   };
 
   return (
@@ -131,14 +176,16 @@ const RecommendationForm = () => {
 
       <form className="recommendationsForm">
         <label htmlFor="artist">Artist</label>
-        <input required type="text" />
+        <input id="artistInput" required type="text" />
 
-        <label htmlFor="album">Album</label>
-        <input required type="text" />
+        <label htmlFor="song">Song</label>
+        <input id="songInput" required type="text" />
 
         <button onClick={handleSubmit}>Go!</button>
       </form>
-      {formValidationMessage && <p>{formValidationMessage}</p>}
+      {formValidationMessage && (
+        <p id="errorMessage">{formValidationMessage}</p>
+      )}
     </div>
   );
 };

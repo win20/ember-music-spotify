@@ -69,10 +69,34 @@ exports.getDailySong = (req, res) => {
     });
 };
 
-exports.getGenresList = (req, res) => {
+exports.getRecommendations = (req, res) => {
   axios
-    .get('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
-      headers: { Authorization: 'Bearer ' + spotify_access_token },
+    .get('https://api.spotify.com/v1/recommendations', {
+      headers: {
+        Authorization: 'Bearer ' + spotify_access_token,
+      },
+      params: {
+        seed_artists: req.query.artistId,
+        seed_genres: req.query.genre,
+        seed_tracks: '32vE1nuG8T9c8bhmZdRY6d',
+      },
+    })
+    .then((response) => {
+      res.send(response.data);
+    });
+};
+
+exports.searchItem = (req, res) => {
+  this.getSpotifyToken();
+  axios
+    .get('https://api.spotify.com/v1/search', {
+      headers: {
+        Authorization: 'Bearer ' + spotify_access_token,
+      },
+      params: {
+        q: `${req.query.searchType}:${req.query.search}`,
+        type: req.query.searchType,
+      },
     })
     .then((response) => {
       res.send(response.data);
