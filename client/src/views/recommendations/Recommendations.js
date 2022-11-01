@@ -1,6 +1,8 @@
 import Header from 'components/header/Header';
 import RecommendationForm from 'components/recommendation-form/RecommendationForm';
-import PlaylistRecommendations from 'components/playlist-recommendations/PlaylistRecommendations';
+import RecommendationsDisplay from 'components/recommendations-display/RecommendationsDisplay';
+import HomepagePlayer from 'components/homepage-player/HomepagePlayer';
+import { useState } from 'react';
 
 const Recommendations = () => {
   const recommendationsFormsStyling = {
@@ -14,6 +16,12 @@ const Recommendations = () => {
     justifyContent: 'space-between',
   };
 
+  const [songsList, setSongsList] = useState(undefined);
+
+  const callback = (songs) => {
+    setSongsList(songs);
+  };
+
   return (
     <div>
       <Header />
@@ -22,8 +30,10 @@ const Recommendations = () => {
           style={recommendationsFormsStyling}
           className="recommendationsForms"
         >
-          <RecommendationForm />
+          <RecommendationForm func={callback} />
         </div>
+        {/* <RecommendationsDisplay /> */}
+        {songsList && <RecommendationsDisplay songs={songsList} />}
       </div>
     </div>
   );

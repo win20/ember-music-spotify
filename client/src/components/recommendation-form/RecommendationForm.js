@@ -79,13 +79,13 @@ function DropdownItem({ setSelectedMusicGenre, setIsDropdownOpen }) {
   return items;
 }
 
-const RecommendationForm = () => {
+const RecommendationForm = (props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedMusicGenre, setSelectedMusicGenre] = useState(
     musicGenresList[0].title
   );
   const [formValidationMessage, setFormValidationMessage] = useState(null);
-  const [songsList, setSongsList] = useState(null);
+  // const [songsList, setSongsList] = useState(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -149,6 +149,7 @@ const RecommendationForm = () => {
       })
       .then((response) => {
         console.log(response.data);
+        props.func(response.data.tracks);
       });
   };
 
