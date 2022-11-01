@@ -17,7 +17,9 @@ const Header = () => {
             placeholder="Search song, artist, album..."
           />
           <button type="submit" className="searchButton">
-            <img id="searchIcon" src={searchIcon} alt="" />
+            <a href="/">
+              <img id="searchIcon" src={searchIcon} alt="" />
+            </a>
           </button>
         </form>
       </div>
