@@ -123,32 +123,33 @@ const RecommendationForm = () => {
         params: { search: artist, searchType: 'artist' },
       })
       .then((response) => {
-        // artistId = response.data.artists.items[0].id;
+        artistId = response.data.artists.items[0].id;
         // console.log(response.data.artists.items[0].id);
-        console.log(response.data);
+        // console.log(response.data);
       });
 
-    // let songId;
-    // await axios
-    //   .get(`http://localhost:3001/spotify/searchItem`, {
-    //     params: { song, searchType: 'track' },
-    //   })
-    //   .then((response) => {
-    //     // songId = response.data.artists.items[0].id;
-    //     console.log(response.data);
-    //   });
+    let songId;
+    await axios
+      .get(`http://localhost:3001/spotify/searchItem`, {
+        params: { search: song, searchType: 'track' },
+      })
+      .then((response) => {
+        songId = response.data.tracks.items[0].id;
+        // console.log(response.data.tracks.items[0].id);
+        // console.log(response.data);
+      });
 
-    // await axios
-    //   .get(`http://localhost:3001/spotify/getRecommendations`, {
-    //     params: {
-    //       genre,
-    //       artistId,
-    //       song,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   });
+    await axios
+      .get(`http://localhost:3001/spotify/getRecommendations`, {
+        params: {
+          genre,
+          artistId,
+          songId,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
   };
 
   return (
