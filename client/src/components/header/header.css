@@ -113,7 +113,7 @@
   content: '';
   position: absolute;
   display: block;
-  width: 38%;
+  width: 50%;
   height: 2px;
   bottom: 0;
   left: 0;
@@ -124,5 +124,23 @@
 }
 
 #recommendations-link:hover::before {
+  transform: scaleX(1);
+}
+
+#studymode-link::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 33%;
+  height: 2px;
+  bottom: 0;
+  left: 182px;
+  background-color: #ff5757;
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform 0.3s ease;
+}
+
+#studymode-link:hover::before {
   transform: scaleX(1);
 }

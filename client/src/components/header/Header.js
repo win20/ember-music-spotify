@@ -1,5 +1,6 @@
 import logoLight from 'assets/logo/red-on-white.png';
 import searchIcon from 'assets/icons/search.png';
+import menuIcon from 'assets/icons/menu.png';
 import 'components/header/header.css';
 
 const Header = () => {
@@ -28,11 +29,9 @@ const Header = () => {
         <a href="/recommendations" id="recommendations-link">
           Recommendations
         </a>
-        <a href="/" id="login-link">
-          Login
-        </a>
-        <a href="/" id="register-link">
-          Register
+
+        <a href="#" id="studymode-link">
+          Study Mode
         </a>
       </div>
     </div>
