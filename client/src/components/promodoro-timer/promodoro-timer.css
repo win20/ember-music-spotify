@@ -1,0 +1,31 @@
+.PromodoroContainer h1 {
+  font-size: 90px;
+}
+
+#timerBottomButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#timerStartBtn {
+  background-color: #ff5757;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 20px;
+  margin-right: 25px;
+}
+
+#timerResetBtn {
+  background-color: #ff5757;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 20px;
+}
+
+#timerStartBtn:hover,
+#timerResetBtn:hover {
+  cursor: pointer;
+}

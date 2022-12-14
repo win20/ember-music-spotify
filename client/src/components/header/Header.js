@@ -1,6 +1,5 @@
 import logoLight from 'assets/logo/red-on-white.png';
 import searchIcon from 'assets/icons/search.png';
-import menuIcon from 'assets/icons/menu.png';
 import 'components/header/header.css';
 
 const Header = () => {
@@ -30,7 +29,7 @@ const Header = () => {
           Recommendations
         </a>
 
-        <a href="#" id="studymode-link">
+        <a href="/studyMode" id="studymode-link">
           Study Mode
         </a>
       </div>

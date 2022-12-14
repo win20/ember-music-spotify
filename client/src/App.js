@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Recommendations from 'views/recommendations/Recommendations';
+import StudyMode from 'views/study-mode/StudyMode';
 
 import Home from 'views/home/Home';
 
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/recommendations" element={<Recommendations />} />
+          <Route path="/studyMode" element={<StudyMode />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
