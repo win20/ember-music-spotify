@@ -1,5 +1,7 @@
 .PromodoroContainer h1 {
   font-size: 90px;
+  font-family: 'Avenir';
+  font-weight: 900;
 }
 
 #timerBottomButtons {
