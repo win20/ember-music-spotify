@@ -40,6 +40,17 @@ const PromodoroTimer = () => {
     setIsPlaying(false);
   };
 
+  const resetTimer = () => {
+    clearInterval(intervalId);
+    setIsPlaying(false);
+
+    setMinutes(startTime.minutes);
+    setSeconds(startTime.seconds);
+
+    minutesRef.current = startTime.minutes;
+    secondsRef.current = startTime.seconds;
+  };
+
   return (
     <div className="PromodoroContainer">
       <h1>
@@ -57,7 +68,9 @@ const PromodoroTimer = () => {
           </button>
         )}
 
-        <button id="timerResetBtn">Reset</button>
+        <button id="timerResetBtn" onClick={resetTimer}>
+          Reset
+        </button>
       </div>
     </div>
   );
