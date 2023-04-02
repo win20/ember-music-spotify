@@ -1,1 +1,1 @@
-# Ember-Music-Spotify
+# Ember Music Spotify
