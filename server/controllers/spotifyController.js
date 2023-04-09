@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { response } = require('express');
 const express = require('express');
+const querystring = require('querystring');
 require('dotenv').config();
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -19,7 +20,7 @@ const serialize = function (obj) {
 };
 
 let spotify_access_token = '';
-exports.getSpotifyToken = () => {
+exports.getSpotifyToken = (req, res) => {
   const promise = axios.post(
     'https://accounts.spotify.com/api/token',
     serialize({
@@ -28,11 +29,14 @@ exports.getSpotifyToken = () => {
     {
       headers: {
         Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
     }
   );
 
-  access_token = promise.then((response) => response.data.access_token);
+  access_token = promise
+    .then((response) => response.data.access_token)
+    .catch((error) => res.send(error));
   access_token.then((response) => {
     spotify_access_token = response;
   });

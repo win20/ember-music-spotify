@@ -32,6 +32,9 @@ const HomepagePlayer = (props) => {
         setTimeout(() => {
           setIsLoading(false);
         }, 400);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
