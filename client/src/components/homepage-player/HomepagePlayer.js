@@ -4,6 +4,7 @@ import axios from 'axios';
 import playIcon from 'assets/icons/play-icon.png';
 import pauseIcon from 'assets/icons/pause-icon.png';
 import LoadingScreen from 'components/loading-screen/LoadingScreen';
+import ErrorModal from 'components/error-modal/ErrorModal';
 
 const HomepagePlayer = (props) => {
   const [songTitle, setSongTitle] = useState('');
@@ -40,6 +41,11 @@ const HomepagePlayer = (props) => {
 
   const [playState, setPlayState] = useState(false);
   const playSong = () => {
+    if (audioSrc == null) {
+      document.querySelector('#ErrorModal').style.display = 'block';
+      document.querySelector('#modal-overlay').style.display = 'block';
+      return;
+    }
     document.querySelector('#audio').play();
     setPlayState(true);
   };
@@ -118,6 +124,7 @@ const HomepagePlayer = (props) => {
           </div>
         </div>
       )}
+      <ErrorModal />
     </div>
   );
 };

@@ -1,0 +1,41 @@
+#ErrorModal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background-color: rgba(250, 250, 250, 0.9);
+  padding: 30px 30px 30px 30px;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.8) 0px 2px 8px 0px;
+  animation: appear 150ms ease-in;
+}
+
+#ErrorModal img {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#ErrorModal img:hover {
+  cursor: pointer;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+}
+
+#modal-overlay {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
