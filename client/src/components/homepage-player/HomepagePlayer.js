@@ -32,6 +32,10 @@ const HomepagePlayer = (props) => {
         setTimeout(() => {
           setIsLoading(false);
         }, 400);
+        console.log('daily song');
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

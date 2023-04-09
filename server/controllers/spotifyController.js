@@ -36,6 +36,7 @@ exports.getSpotifyToken = () => {
   access_token.then((response) => {
     spotify_access_token = response;
   });
+  console.log(spotify_access_token);
 };
 
 exports.getTrack = (req, res) => {
