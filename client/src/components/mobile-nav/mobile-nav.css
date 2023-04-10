@@ -1,0 +1,56 @@
+@media only screen and (max-width: 1180px) {
+  #menu-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 35px;
+  }
+
+  #menu-icon:hover {
+    cursor: pointer;
+  }
+}
+#MobileNav {
+  background-color: #e8e8e8;
+  z-index: 1;
+  width: 45%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  box-shadow: -1px -2px 4px rgba(10, 10, 10, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  display: none;
+  animation: appearNav 150ms ease-in;
+}
+
+#mobile-nav-items {
+  margin: 0 auto;
+}
+
+#MobileNav #mobile-nav-items div {
+  margin: 30px 0;
+  font-size: 17px;
+}
+
+#MobileNav img {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+#MobileNav img:hover {
+  cursor: pointer;
+}
+
+@keyframes appearNav {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}

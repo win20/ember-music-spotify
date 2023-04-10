@@ -2,13 +2,12 @@ import logoLight from 'assets/logo/red-on-white.png';
 import searchIcon from 'assets/icons/search.png';
 import menuIcon from 'assets/icons/menu.png';
 import 'components/header/header.css';
-import { useRef } from 'react';
+import MobileNav from 'components/mobile-nav/MobileNav';
 
 const Header = () => {
-  const menuItemsRef = useRef(null);
-
   const handleMenuClick = () => {
-    menuItemsRef.current.style.display = 'block';
+    document.querySelector('#MobileNav').style.display = 'flex';
+    document.querySelector('.modal-overlay').style.display = 'block';
   };
 
   return (
@@ -30,7 +29,7 @@ const Header = () => {
           </button>
         </form>
       </div>
-      <div className="header-links" ref={menuItemsRef}>
+      <div className="header-links">
         <a href="/recommendations" id="recommendations-link">
           Recommendations
         </a>
@@ -41,6 +40,7 @@ const Header = () => {
       </div>
       <img id="menu-icon" src={menuIcon} onClick={handleMenuClick} />
       <div></div>
+      <MobileNav />
     </div>
   );
 };

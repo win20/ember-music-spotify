@@ -163,18 +163,6 @@
     display: none;
   }
 
-  #menu-icon {
-    display: block;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    right: 35px;
-  }
-
-  #menu-icon:hover {
-    cursor: pointer;
-  }
-
   .deezer-btn {
     display: block;
   }
