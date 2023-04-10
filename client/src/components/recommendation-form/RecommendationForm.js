@@ -3,6 +3,8 @@ import { useState } from 'react';
 import downArrow from 'assets/icons/down-arrow.png';
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_URL_PREFIX;
+
 const musicGenresList = [
   {
     id: 0,
@@ -119,7 +121,7 @@ const RecommendationForm = (props) => {
 
     let artistId;
     await axios
-      .get(`http://localhost:3001/spotify/searchItem`, {
+      .get(`${apiUrl}spotify/searchItem`, {
         params: { search: artist, searchType: 'artist' },
       })
       .then((response) => {
@@ -130,7 +132,7 @@ const RecommendationForm = (props) => {
 
     let songId;
     await axios
-      .get(`http://localhost:3001/spotify/searchItem`, {
+      .get(`${apiUrl}spotify/searchItem`, {
         params: { search: song, searchType: 'track' },
       })
       .then((response) => {
@@ -140,7 +142,7 @@ const RecommendationForm = (props) => {
       });
 
     await axios
-      .get(`http://localhost:3001/spotify/getRecommendations`, {
+      .get(`${apiUrl}spotify/getRecommendations`, {
         params: {
           genre,
           artistId,

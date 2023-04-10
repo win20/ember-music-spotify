@@ -18,7 +18,9 @@ function App() {
   }, []);
 
   const getSpotifyAccessToken = async () => {
-    const test = await axios.get(`http://localhost:3001/spotify`);
+    const test = await axios.get(
+      `${process.env.REACT_APP_API_URL_PREFIX}spotify`
+    );
     console.log('TEST: ');
   };
 
