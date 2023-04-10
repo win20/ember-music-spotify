@@ -144,3 +144,38 @@
 #studymode-link:hover::before {
   transform: scaleX(1);
 }
+
+#menu-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 1180px) {
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .search-container {
+    display: none;
+  }
+
+  .header-links {
+    display: none;
+  }
+
+  #menu-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 35px;
+  }
+
+  #menu-icon:hover {
+    cursor: pointer;
+  }
+
+  .deezer-btn {
+    display: block;
+  }
+}
