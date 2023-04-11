@@ -21,7 +21,7 @@ const HomepagePlayer = (props) => {
 
   const fetchDailySong = async () => {
     await axios
-      .get(`${process.env.REACT_APP_API_URL_PREFIX}spotify/getDailySong`)
+      .get(`${import.meta.env.VITE_API_URL_PREFIX}spotify/getDailySong`)
       .then((response) => {
         setSongTitle(response.data['track']['track']['name']);
         setSongArtist(response.data['track']['track']['artists'][0]['name']);

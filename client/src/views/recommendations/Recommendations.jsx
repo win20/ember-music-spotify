@@ -1,7 +1,6 @@
 import Header from 'components/header/Header';
 import RecommendationForm from 'components/recommendation-form/RecommendationForm';
 import RecommendationsDisplay from 'components/recommendations-display/RecommendationsDisplay';
-import HomepagePlayer from 'components/homepage-player/HomepagePlayer';
 import { useState } from 'react';
 
 const Recommendations = () => {

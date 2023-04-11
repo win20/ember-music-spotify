@@ -7,7 +7,7 @@ const Home = () => {
     width: '100%',
     height: '100%',
     position: 'absolute',
-    'background-color': 'rgba(10,10,10, 0.3)',
+    backgroundColor: 'rgba(10,10,10, 0.3)',
   };
   return (
     <div id="Home">

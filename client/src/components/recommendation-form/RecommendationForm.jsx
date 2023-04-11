@@ -3,7 +3,7 @@ import { useState } from 'react';
 import downArrow from 'assets/icons/down-arrow.png';
 import axios from 'axios';
 
-const apiUrl = process.env.REACT_APP_API_URL_PREFIX;
+const apiUrl = import.meta.env.VITE_API_URL_PREFIX;
 
 const musicGenresList = [
   {
