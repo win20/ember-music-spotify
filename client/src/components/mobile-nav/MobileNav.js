@@ -10,8 +10,8 @@ const MobileNav = () => {
     <div id="MobileNav">
       <img id="mobile-nav-close-btn" src={closeIcon} onClick={handleClose} />
       <div id="mobile-nav-items">
-        <div>Recommendations</div>
-        <div>Study mode</div>
+        <a href="/recommendations">Recommendations</a>
+        <a href="/studyMode">Study mode</a>
       </div>
     </div>
   );

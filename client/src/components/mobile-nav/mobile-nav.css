@@ -29,11 +29,15 @@
 
 #mobile-nav-items {
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
-#MobileNav #mobile-nav-items div {
-  margin: 30px 0;
+#MobileNav #mobile-nav-items a {
+  margin: 20px 0;
   font-size: 17px;
+  text-decoration: none;
+  color: black;
 }
 
 #MobileNav img {
