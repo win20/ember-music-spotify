@@ -95,4 +95,7 @@
   #songDetails h3 {
     font-size: 18px;
   }
+  .progress-container {
+    margin-right: 15px;
+  }
 }
