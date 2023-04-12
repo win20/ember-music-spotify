@@ -61,31 +61,38 @@ const musicGenresList = [
     key: 'musicGenre',
   },
 ];
-type dropdownItemType = {
+
+type DropdownItem = {
   setSelectedMusicGenre: any;
   setIsDropdownOpen: any;
 };
-function DropdownItem({
+
+const DropdownItems = ({
   setSelectedMusicGenre,
   setIsDropdownOpen,
-}: dropdownItemType) {
+}: DropdownItem) => {
   const selectMusicGenre = (e: any) => {
     setSelectedMusicGenre(musicGenresList[e.target.id].title);
     setIsDropdownOpen(false);
   };
 
-  const items = musicGenresList.map((i) => (
-    <li
-      key={i.id}
-      id={i.id.toString()}
-      className="dropdownItem"
-      onClick={selectMusicGenre}
-    >
-      {i.title}
-    </li>
-  ));
-  return items;
-}
+  return (
+    <>
+      {musicGenresList.map((i) => {
+        return (
+          <li
+            key={i.id}
+            id={i.id.toString()}
+            className="dropdownItem"
+            onClick={selectMusicGenre}
+          >
+            {i.title}
+          </li>
+        );
+      })}
+    </>
+  );
+};
 
 const RecommendationForm = (props: any) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -134,8 +141,6 @@ const RecommendationForm = (props: any) => {
       })
       .then((response) => {
         artistId = response.data.artists.items[0].id;
-        // console.log(response.data.artists.items[0].id);
-        // console.log(response.data);
       });
 
     let songId;
@@ -145,8 +150,6 @@ const RecommendationForm = (props: any) => {
       })
       .then((response) => {
         songId = response.data.tracks.items[0].id;
-        // console.log(response.data.tracks.items[0].id);
-        // console.log(response.data);
       });
 
     await axios
@@ -177,10 +180,10 @@ const RecommendationForm = (props: any) => {
         <div className="dd-list">
           {isDropdownOpen && (
             <ul>
-              {/*<DropdownItem
+              <DropdownItems
                 setSelectedMusicGenre={setSelectedMusicGenre}
                 setIsDropdownOpen={setIsDropdownOpen}
-              />*/}
+              />
             </ul>
           )}
         </div>
