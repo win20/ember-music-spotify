@@ -25,17 +25,8 @@ function App() {
     console.log('TEST: ');
   };
 
-  const overlayStyle: CSSProperties = {
-    display: 'none',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    backgroundColor: 'rgba(10,10,10, 0.3)',
-  };
   return (
     <div className="App">
-      <div className="modal-overlay" style={overlayStyle}></div>
-
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
