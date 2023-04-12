@@ -1,10 +1,12 @@
 import './mobile-nav.css';
-import closeIcon from 'assets/icons/x-mark.png';
+import closeIcon from '@assets/icons/x-mark.png';
 
 const MobileNav = () => {
   const handleClose = () => {
-    document.querySelector('#MobileNav').style.display = 'none';
-    document.querySelector('.modal-overlay').style.display = 'none';
+    (document.querySelector('#MobileNav') as HTMLElement).style.display =
+      'none';
+    (document.querySelector('.modal-overlay') as HTMLElement).style.display =
+      'none';
   };
   return (
     <div id="MobileNav">

@@ -1,4 +1,4 @@
-import 'components/promodoro-timer/promodoro-timer.css';
+import './promodoro-timer.css';
 import { useState, useEffect, useRef } from 'react';
 
 const PromodoroTimer = () => {
@@ -15,7 +15,7 @@ const PromodoroTimer = () => {
   const secondsRef = useRef(seconds);
   const minutesRef = useRef(minutes);
 
-  const [intervalId, setIntervalId] = useState(null);
+  const [intervalId, setIntervalId] = useState<number>(0);
 
   const startTimer = () => {
     setIsPlaying(true);

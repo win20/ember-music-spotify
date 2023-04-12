@@ -1,8 +1,9 @@
-import Header from 'components/header/Header';
-import HomepagePlayer from 'components/homepage-player/HomepagePlayer';
+import { CSSProperties } from 'react';
+import Header from '@components/header/Header';
+import HomepagePlayer from '@components/homepage-player/HomepagePlayer';
 
 const Home = () => {
-  const overlayStyle = {
+  const overlayStyle: CSSProperties = {
     display: 'none',
     width: '100%',
     height: '100%',

@@ -1,23 +1,23 @@
-import Header from 'components/header/Header';
-import RecommendationForm from 'components/recommendation-form/RecommendationForm';
-import RecommendationsDisplay from 'components/recommendations-display/RecommendationsDisplay';
-import { useState } from 'react';
+import Header from '@components/header/Header';
+import RecommendationForm from '@components/recommendation-form/RecommendationForm';
+import RecommendationsDisplay from '@components/recommendations-display/RecommendationsDisplay';
+import { CSSProperties, useState } from 'react';
 
 const Recommendations = () => {
-  const recommendationsFormsStyling = {
+  const recommendationsFormsStyling: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
   };
 
-  const formAndChartCardStyling = {
+  const formAndChartCardStyling: CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
   };
 
   const [songsList, setSongsList] = useState(undefined);
 
-  const callback = (songs) => {
+  const callback = (songs: any) => {
     setSongsList(songs);
   };
 

@@ -1,9 +1,11 @@
-import 'components/error-modal/error-modal.css';
-import closeIcon from 'assets/icons/x-mark.png';
+import './error-modal.css';
+import closeIcon from '@assets/icons/x-mark.png';
 const ErrorModal = () => {
   const closeModal = () => {
-    document.querySelector('#ErrorModal').style.display = 'none';
-    document.querySelector('#modal-overlay').style.display = 'none';
+    (document.querySelector('#ErrorModal') as HTMLElement).style.display =
+      'none';
+    (document.querySelector('#modal-overlay') as HTMLElement).style.display =
+      'none';
   };
 
   return (

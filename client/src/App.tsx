@@ -9,7 +9,6 @@ import Home from './views/home/Home';
 
 function App() {
   useEffect(() => {
-    console.log(import.meta.env.MODE);
     getSpotifyAccessToken()
       .then((response) => {
         console.log('Success access token');

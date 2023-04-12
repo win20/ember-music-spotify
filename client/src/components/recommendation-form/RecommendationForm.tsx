@@ -1,6 +1,6 @@
-import 'components/recommendation-form/recommendation-form.css';
+import './recommendation-form.css';
 import { useState } from 'react';
-import downArrow from 'assets/icons/down-arrow.png';
+import downArrow from '@assets/icons/down-arrow.png';
 import axios from 'axios';
 
 const apiUrl = import.meta.env.VITE_API_URL_PREFIX;
@@ -61,9 +61,15 @@ const musicGenresList = [
     key: 'musicGenre',
   },
 ];
-
-function DropdownItem({ setSelectedMusicGenre, setIsDropdownOpen }) {
-  const selectMusicGenre = (e) => {
+type dropdownItemType = {
+  setSelectedMusicGenre: any;
+  setIsDropdownOpen: any;
+};
+function DropdownItem({
+  setSelectedMusicGenre,
+  setIsDropdownOpen,
+}: dropdownItemType) {
+  const selectMusicGenre = (e: any) => {
     setSelectedMusicGenre(musicGenresList[e.target.id].title);
     setIsDropdownOpen(false);
   };
@@ -71,7 +77,7 @@ function DropdownItem({ setSelectedMusicGenre, setIsDropdownOpen }) {
   const items = musicGenresList.map((i) => (
     <li
       key={i.id}
-      id={i.id}
+      id={i.id.toString()}
       className="dropdownItem"
       onClick={selectMusicGenre}
     >
@@ -81,12 +87,13 @@ function DropdownItem({ setSelectedMusicGenre, setIsDropdownOpen }) {
   return items;
 }
 
-const RecommendationForm = (props) => {
+const RecommendationForm = (props: any) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedMusicGenre, setSelectedMusicGenre] = useState(
     musicGenresList[0].title
   );
-  const [formValidationMessage, setFormValidationMessage] = useState(null);
+  const [formValidationMessage, setFormValidationMessage] =
+    useState<string>('');
   // const [songsList, setSongsList] = useState(null);
 
   const toggleDropdown = () => {
@@ -94,29 +101,30 @@ const RecommendationForm = (props) => {
   };
 
   window.addEventListener('click', (e) => {
-    if (!document.querySelector('.dd-wrapper').contains(e.target)) {
+    if (!document.querySelector('.dd-wrapper')?.contains(e.target as Node)) {
       setIsDropdownOpen(false);
     }
   });
 
-  const checkSpecailChars = (str) => {
+  const checkSpecailChars = (str: any) => {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(str);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     let genre = selectedMusicGenre;
-    let artist = document.querySelector('#artistInput').value;
-    let song = document.querySelector('#songInput').value;
+    let artist = (document.querySelector('#artistInput') as HTMLInputElement)
+      .value;
+    let song = (document.querySelector('#songInput') as HTMLInputElement).value;
 
     if (selectedMusicGenre === musicGenresList[0].title) {
       setFormValidationMessage('Please select a music genre');
     } else if (checkSpecailChars(artist) || checkSpecailChars(song)) {
       setFormValidationMessage('Special characters are not allowed');
     } else {
-      setFormValidationMessage(null);
+      setFormValidationMessage('');
     }
 
     let artistId;
@@ -169,10 +177,10 @@ const RecommendationForm = (props) => {
         <div className="dd-list">
           {isDropdownOpen && (
             <ul>
-              <DropdownItem
+              {/*<DropdownItem
                 setSelectedMusicGenre={setSelectedMusicGenre}
                 setIsDropdownOpen={setIsDropdownOpen}
-              />
+              />*/}
             </ul>
           )}
         </div>

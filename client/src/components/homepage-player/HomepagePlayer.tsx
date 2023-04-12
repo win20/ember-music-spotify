@@ -1,18 +1,18 @@
 import './homepage-player.css';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import playIcon from 'assets/icons/play-icon.png';
-import pauseIcon from 'assets/icons/pause-icon.png';
-import LoadingScreen from 'components/loading-screen/LoadingScreen';
-import ErrorModal from 'components/error-modal/ErrorModal';
+import playIcon from '@assets/icons/play-icon.png';
+import pauseIcon from '@assets/icons/pause-icon.png';
+import LoadingScreen from '@components/loading-screen/LoadingScreen';
+import ErrorModal from '@components/error-modal/ErrorModal';
 
-const HomepagePlayer = (props) => {
+const HomepagePlayer = (props: any) => {
   const [songTitle, setSongTitle] = useState('');
   const [songArtist, setSongArtist] = useState('');
   const [songCover, setSongCover] = useState('');
   const [audioSrc, setAudioSrc] = useState('');
   const [songUrl, setSongUrl] = useState('');
-  const progressContainer = useRef(null);
+  const progressContainer = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -42,35 +42,37 @@ const HomepagePlayer = (props) => {
   const [playState, setPlayState] = useState(false);
   const playSong = () => {
     if (audioSrc == null) {
-      document.querySelector('#ErrorModal').style.display = 'block';
-      document.querySelector('#modal-overlay').style.display = 'block';
+      (document.querySelector('#ErrorModal') as HTMLElement).style.display =
+        'block';
+      (document.querySelector('#modal-overlay') as HTMLElement).style.display =
+        'block';
       return;
     }
-    document.querySelector('#audio').play();
+    (document.querySelector('#audio') as HTMLAudioElement).play();
     setPlayState(true);
   };
 
   const pauseSong = () => {
-    document.querySelector('#audio').pause();
+    (document.querySelector('#audio') as HTMLAudioElement).pause();
     setPlayState(false);
   };
 
   // Update progress visual every second
-  const updateProgress = (e) => {
-    const progress = document.querySelector('.progress');
+  const updateProgress = (e: any) => {
+    const progress = document.querySelector('.progress') as HTMLElement;
     const { duration, currentTime } = e.target;
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
   };
 
   // Set progress on visual and audio when user clicks on the progress bar
-  const setProgress = (e) => {
-    const width = progressContainer.current.clientWidth;
+  const setProgress = (e: any) => {
+    const width = progressContainer.current?.clientWidth;
     const clickX = e.clientX - e.target.offsetLeft;
-    const audio = document.querySelector('#audio');
+    const audio = document.querySelector('#audio') as HTMLAudioElement;
     const duration = audio.duration;
 
-    audio.currentTime = (clickX / width) * duration;
+    audio.currentTime = (width && (clickX / width) * duration) as number;
   };
 
   return (

@@ -1,5 +1,5 @@
-import 'components/promodoro-player/promodoro-player.css';
-import coverImg from 'assets/imgs/cover.jpeg';
+import './promodoro-player.css';
+import coverImg from '@assets/imgs/cover.jpeg';
 
 const PromodoroPlayer = () => {
   return (

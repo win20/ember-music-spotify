@@ -1,7 +1,7 @@
-import 'components/recommendations-display/recommendations-display.css';
+import './recommendations-display.css';
 
-const SongsGridItems = (props) => {
-  return props.songs.slice(0, 9).map((song) => (
+const SongsGridItems = (props: any) => {
+  return props.songs.slice(0, 9).map((song: any) => (
     <div key={song.id} className="grid-item">
       <a
         target={'_blank'}
@@ -14,7 +14,7 @@ const SongsGridItems = (props) => {
   ));
 };
 
-const RecommendationsDisplay = (props) => {
+const RecommendationsDisplay = (props: any) => {
   return (
     <div id="RecommendsationsDisplay">
       <div className="songGridContainer">

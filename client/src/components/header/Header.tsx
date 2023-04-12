@@ -1,13 +1,15 @@
-import logoLight from 'assets/logo/red-on-white.png';
-import searchIcon from 'assets/icons/search.png';
-import menuIcon from 'assets/icons/menu.png';
-import 'components/header/header.css';
-import MobileNav from 'components/mobile-nav/MobileNav';
+import logoLight from '@assets/logo/red-on-white.png';
+import searchIcon from '@assets/icons/search.png';
+import menuIcon from '@assets/icons/menu.png';
+import './header.css';
+import MobileNav from '@components/mobile-nav/MobileNav';
 
 const Header = () => {
   const handleMenuClick = () => {
-    document.querySelector('#MobileNav').style.display = 'flex';
-    document.querySelector('.modal-overlay').style.display = 'block';
+    (document.querySelector('#MobileNav') as HTMLElement).style.display =
+      'flex';
+    (document.querySelector('.modal-overlay') as HTMLElement).style.display =
+      'block';
   };
 
   return (
