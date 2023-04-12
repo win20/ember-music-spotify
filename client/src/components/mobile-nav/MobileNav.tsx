@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './mobile-nav.css';
 import closeIcon from '@assets/icons/x-mark.png';
 
@@ -12,9 +13,9 @@ const MobileNav = () => {
     <div id="MobileNav">
       <img id="mobile-nav-close-btn" src={closeIcon} onClick={handleClose} />
       <div id="mobile-nav-items">
-        <a href="/">Home</a>
-        <a href="/recommendations">Recommendations</a>
-        <a href="/studyMode">Study mode</a>
+        <Link to="/">Home</Link>
+        <Link to="/recommendations">Recommendations</Link>
+        <Link to="/studyMode">Study mode</Link>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import searchIcon from '@assets/icons/search.png';
 import menuIcon from '@assets/icons/menu.png';
 import './header.css';
 import MobileNav from '@components/mobile-nav/MobileNav';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const handleMenuClick = () => {
@@ -14,9 +15,9 @@ const Header = () => {
 
   return (
     <div id="HeaderContainer">
-      <a href="/" className="logoHomeLink">
+      <Link to="/" className="logoHomeLink">
         <img className="logo" src={logoLight} alt="" />
-      </a>
+      </Link>
       <div className="search-container">
         <form action="">
           <input
@@ -25,20 +26,20 @@ const Header = () => {
             placeholder="Search song, artist, album..."
           />
           <button type="submit" className="searchButton">
-            <a href="/">
+            <Link to="/">
               <img id="searchIcon" src={searchIcon} alt="" />
-            </a>
+            </Link>
           </button>
         </form>
       </div>
       <div className="header-links">
-        <a href="/recommendations" id="recommendations-link">
+        <Link to="/recommendations" id="recommendations-link">
           Recommendations
-        </a>
+        </Link>
 
-        <a href="/studyMode" id="studymode-link">
+        <Link to="/studyMode" id="studymode-link">
           Study Mode
-        </a>
+        </Link>
       </div>
       <img id="menu-icon" src={menuIcon} onClick={handleMenuClick} />
       <div></div>
