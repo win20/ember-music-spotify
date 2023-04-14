@@ -1,0 +1,31 @@
+#RecommendsationsDisplayMobile {
+  margin-bottom: 50px;
+}
+.songContainer img {
+  width: 100px;
+  height: 100px;
+}
+.songContainer a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  width: 85%;
+}
+.song-item {
+  border: 0.5px solid rgba(10, 10, 10, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: flex;
+  width: 85%;
+  margin: auto;
+  margin-top: 8px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.song-item span {
+  margin-left: 8px;
+}
+
+.song-item img {
+  border-radius: 5px;
+}

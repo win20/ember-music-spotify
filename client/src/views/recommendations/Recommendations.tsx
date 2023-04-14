@@ -1,21 +1,28 @@
 import Header from '@components/header/Header';
 import RecommendationForm from '@components/recommendation-form/RecommendationForm';
 import RecommendationsDisplay from '@components/recommendations-display/RecommendationsDisplay';
-import { CSSProperties, useState } from 'react';
+import RecommendationsDisplayMobile from '@/components/recommendations-display-mobile/RecommendationsDisplayMobile';
+import { useEffect, useRef, useState } from 'react';
+import './recommendations.css';
 
 const Recommendations = () => {
-  const recommendationsFormsStyling: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  };
-
-  const formAndChartCardStyling: CSSProperties = {
-    display: 'flex',
-    justifyContent: 'space-between',
-  };
-
   const [songsList, setSongsList] = useState(undefined);
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  });
 
   const callback = (songs: any) => {
     setSongsList(songs);
@@ -24,15 +31,15 @@ const Recommendations = () => {
   return (
     <div>
       <Header />
-      <div style={formAndChartCardStyling} className="formAndChartCard">
-        <div
-          style={recommendationsFormsStyling}
-          className="recommendationsForms"
-        >
+      <div className="formAndChartCard">
+        <div className="recommendationsForms">
           <RecommendationForm func={callback} />
         </div>
-        {/* <RecommendationsDisplay /> */}
-        {songsList && <RecommendationsDisplay songs={songsList} />}
+        {songsList && windowSize[0] > 1180 ? (
+          <RecommendationsDisplay songs={songsList} />
+        ) : (
+          <RecommendationsDisplayMobile songs={songsList} />
+        )}
       </div>
     </div>
   );

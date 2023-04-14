@@ -1,0 +1,15 @@
+.recommendationsForms {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.formAndChartCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+html {
+  scroll-behavior: smooth;
+}
