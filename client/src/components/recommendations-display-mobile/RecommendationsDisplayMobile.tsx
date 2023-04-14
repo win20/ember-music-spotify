@@ -7,9 +7,9 @@ const SongsItems = (props: any) => {
       target={'_blank'}
       rel="noopener noreferrer"
       href={song.external_urls.spotify}
-      key={song.title}
+      key={song.id}
     >
-      <div key={song.id} className="song-item">
+      <div className="song-item">
         <img src={song.album.images[0].url} alt="" />
         <div className="song-details">
           <div className="song-name">{song.name}</div>

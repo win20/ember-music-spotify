@@ -24,6 +24,10 @@ const Recommendations = () => {
     };
   });
 
+  useEffect(() => {
+    document.querySelector('#RecommendsationsDisplayMobile')?.scrollIntoView();
+  }, [songsList]);
+
   const callback = (songs: any) => {
     setSongsList(songs);
   };
@@ -44,12 +48,8 @@ const Recommendations = () => {
         ) : (
           <div></div>
         )}
-        {/* {songsList && windowSize[0] > 1180 ? ( */}
-        {/*   <RecommendationsDisplay songs={songsList} /> */}
-        {/* ) : ( */}
-        {/*   <RecommendationsDisplayMobile songs={songsList} /> */}
-        {/* )} */}
       </div>
+      <div id="page-bottom"></div>
     </div>
   );
 };
