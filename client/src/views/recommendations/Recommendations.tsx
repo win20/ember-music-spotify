@@ -35,11 +35,20 @@ const Recommendations = () => {
         <div className="recommendationsForms">
           <RecommendationForm func={callback} />
         </div>
-        {songsList && windowSize[0] > 1180 ? (
-          <RecommendationsDisplay songs={songsList} />
+        {songsList ? (
+          windowSize[0] > 1180 ? (
+            <RecommendationsDisplay songs={songsList} />
+          ) : (
+            <RecommendationsDisplayMobile songs={songsList} />
+          )
         ) : (
-          <RecommendationsDisplayMobile songs={songsList} />
+          <div></div>
         )}
+        {/* {songsList && windowSize[0] > 1180 ? ( */}
+        {/*   <RecommendationsDisplay songs={songsList} /> */}
+        {/* ) : ( */}
+        {/*   <RecommendationsDisplayMobile songs={songsList} /> */}
+        {/* )} */}
       </div>
     </div>
   );

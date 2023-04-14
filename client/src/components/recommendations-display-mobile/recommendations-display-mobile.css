@@ -1,5 +1,6 @@
 #RecommendsationsDisplayMobile {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  margin-top: 40px;
 }
 .songContainer img {
   width: 100px;
@@ -8,24 +9,46 @@
 .songContainer a {
   text-decoration: none;
   color: black;
-  font-weight: bold;
   width: 85%;
 }
+
+.song-details {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.song-name {
+  font-weight: bold;
+}
+
 .song-item {
   border: 0.5px solid rgba(10, 10, 10, 0.2);
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   display: flex;
   width: 85%;
   margin: auto;
   margin-top: 8px;
   border-radius: 5px;
   padding: 5px;
+  position: relative;
 }
 
-.song-item span {
-  margin-left: 8px;
+.song-item:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .song-item img {
   border-radius: 5px;
+}
+
+#right-arrow-cta {
+  position: absolute;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+  margin: auto 0;
+  transition: 0.2s ease-in-out;
+}
+
+.song-item:hover #right-arrow-cta {
+  right: 20px;
 }
