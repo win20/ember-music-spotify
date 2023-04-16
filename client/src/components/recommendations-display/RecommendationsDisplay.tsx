@@ -10,6 +10,7 @@ const SongsGridItems = (props: any) => {
       >
         <img src={song.album.images[0].url} alt="" />
       </a>
+      <span>test</span>
     </div>
   ));
 };
