@@ -31,3 +31,14 @@
 #timerResetBtn:hover {
   cursor: pointer;
 }
+
+@media only screen and (max-width: 1180px) {
+  .PromodoroContainer h1 {
+    font-size: 70px;
+  }
+  #timerStartBtn,
+  #timerResetBtn {
+    font-size: 16px;
+    padding: 5px 16px;
+  }
+}
