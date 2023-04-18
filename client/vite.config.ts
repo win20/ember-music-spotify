@@ -23,6 +23,7 @@ export default defineConfig({
       '@assets': './src/assets',
       '@components': './src/components',
       '@views': './src/views',
+      '@models': './src/models',
     },
   },
 });

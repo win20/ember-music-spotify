@@ -1,10 +1,9 @@
 import './App.css';
-import { CSSProperties, useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Recommendations from './views/recommendations/Recommendations';
 import StudyMode from './views/study-mode/StudyMode';
-
 import Home from './views/home/Home';
 
 function App() {
@@ -19,10 +18,7 @@ function App() {
   }, []);
 
   const getSpotifyAccessToken = async () => {
-    const test = await axios.get(
-      `${import.meta.env.VITE_API_URL_PREFIX}spotify`
-    );
-    console.log('TEST: ');
+    await axios.get(`${import.meta.env.VITE_API_URL_PREFIX}spotify`);
   };
 
   return (
