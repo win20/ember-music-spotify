@@ -30,7 +30,6 @@ const Recommendations = () => {
   }, [songsList]);
 
   const callback = (songs: Song[]) => {
-    console.log(songs[0].name);
     setSongsList(songs);
   };
 

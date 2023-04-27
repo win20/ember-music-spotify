@@ -1,7 +1,9 @@
 import './recommendation-form.css';
-import { useState } from 'react';
+import { MouseEvent, SetStateAction, useState } from 'react';
 import downArrow from '@assets/icons/down-arrow.png';
 import axios from 'axios';
+import Song from '@/models/Song';
+import { Dispatch } from 'react';
 
 const apiUrl = import.meta.env.VITE_API_URL_PREFIX;
 
@@ -62,17 +64,18 @@ const musicGenresList = [
   },
 ];
 
-type DropdownItem = {
-  setSelectedMusicGenre: any;
-  setIsDropdownOpen: any;
+type DropdownItemsProps = {
+  setSelectedMusicGenre: Dispatch<SetStateAction<string>>;
+  setIsDropdownOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const DropdownItems = ({
   setSelectedMusicGenre,
   setIsDropdownOpen,
-}: DropdownItem) => {
-  const selectMusicGenre = (e: any) => {
-    setSelectedMusicGenre(musicGenresList[e.target.id].title);
+}: DropdownItemsProps) => {
+  const selectMusicGenre = (e: MouseEvent) => {
+    const target = e.target as HTMLLIElement;
+    setSelectedMusicGenre(musicGenresList[parseInt(target.id)].title);
     setIsDropdownOpen(false);
   };
 
@@ -94,14 +97,17 @@ const DropdownItems = ({
   );
 };
 
-const RecommendationForm = (props: any) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedMusicGenre, setSelectedMusicGenre] = useState(
+type RecommendationFormProp = {
+  func: (songs: Song[]) => void;
+};
+
+const RecommendationForm = (props: RecommendationFormProp) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [selectedMusicGenre, setSelectedMusicGenre] = useState<string>(
     musicGenresList[0].title
   );
   const [formValidationMessage, setFormValidationMessage] =
     useState<string>('');
-  // const [songsList, setSongsList] = useState(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -113,12 +119,12 @@ const RecommendationForm = (props: any) => {
     }
   });
 
-  const checkSpecailChars = (str: any) => {
+  const checkSpecailChars = (str: string) => {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(str);
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
 
     let genre = selectedMusicGenre;

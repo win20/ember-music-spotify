@@ -1,11 +1,5 @@
 import './homepage-player.css';
-import {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  SyntheticEvent,
-} from 'react';
+import { useEffect, useState, useRef, SyntheticEvent } from 'react';
 import axios from 'axios';
 import playIcon from '@assets/icons/play-icon.png';
 import pauseIcon from '@assets/icons/pause-icon.png';
@@ -114,7 +108,7 @@ const HomepagePlayer = () => {
             <div
               ref={progressContainer}
               className="progress-container"
-              onClick={setProgress}
+              onClick={() => setProgress}
             >
               <div className="progress"></div>
             </div>
