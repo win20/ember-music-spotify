@@ -1,12 +1,18 @@
 import './homepage-player.css';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  SyntheticEvent,
+} from 'react';
 import axios from 'axios';
 import playIcon from '@assets/icons/play-icon.png';
 import pauseIcon from '@assets/icons/pause-icon.png';
 import LoadingScreen from '@components/loading-screen/LoadingScreen';
 import ErrorModal from '@components/error-modal/ErrorModal';
 
-const HomepagePlayer = (props: any) => {
+const HomepagePlayer = () => {
   const [songTitle, setSongTitle] = useState('');
   const [songArtist, setSongArtist] = useState('');
   const [songCover, setSongCover] = useState('');
@@ -58,17 +64,17 @@ const HomepagePlayer = (props: any) => {
   };
 
   // Update progress visual every second
-  const updateProgress = (e: any) => {
+  const updateProgress = (e: SyntheticEvent<HTMLAudioElement>) => {
     const progress = document.querySelector('.progress') as HTMLElement;
-    const { duration, currentTime } = e.target;
+    const { duration, currentTime } = e.target as HTMLAudioElement;
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
   };
 
   // Set progress on visual and audio when user clicks on the progress bar
-  const setProgress = (e: any) => {
+  const setProgress = (e: MouseEvent) => {
     const width = progressContainer.current?.clientWidth;
-    const clickX = e.clientX - e.target.offsetLeft;
+    const clickX = e.clientX - (e.target as HTMLDivElement).offsetLeft;
     const audio = document.querySelector('#audio') as HTMLAudioElement;
     const duration = audio.duration;
 

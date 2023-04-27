@@ -37,6 +37,9 @@ interface Song {
   id: string;
   name: string;
   uri: string;
+  external_urls: {
+    spotify: string;
+  };
 }
 
 export default Song;
