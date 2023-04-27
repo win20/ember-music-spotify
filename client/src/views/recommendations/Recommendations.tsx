@@ -5,6 +5,7 @@ import RecommendationsDisplayMobile from '@/components/recommendations-display-m
 import { useEffect, useState } from 'react';
 import './recommendations.css';
 import Song from '@models/Song';
+import { Helmet } from 'react-helmet';
 
 const Recommendations = () => {
   const [songsList, setSongsList] = useState<Song[]>();
@@ -35,6 +36,9 @@ const Recommendations = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Ember Music - Recommendations</title>
+      </Helmet>
       <Header />
       <div className="formAndChartCard">
         <div className="recommendationsForms">
