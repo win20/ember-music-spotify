@@ -1,3 +1,8 @@
+:root {
+  --img-size: 150px;
+  --img-border-radius: 10px;
+}
+
 #RecommendsationsDisplay .songGridContainer {
   display: grid;
   column-gap: 20px;
@@ -8,10 +13,14 @@
 }
 
 #RecommendsationsDisplay .grid-item img {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
+  width: var(--img-size);
+  height: var(--img-size);
+  border-radius: var(--img-border-radius);
   box-shadow: rgba(149, 157, 165, 0.5) 0px 0px 24px;
+}
+
+#RecommendsationsDisplay .grid-item {
+  position: relative;
 }
 
 #RecommendsationsDisplay .grid-item span {
@@ -19,23 +28,19 @@
 }
 
 #RecommendsationsDisplay .grid-item:hover span {
-  display: block;
+  width: var(--img-size);
+  height: var(--img-size);
+  border-radius: var(--img-border-radius);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(10, 10, 10, 0.7);
+  color: white;
+  font-weight: bold;
+  padding: 0 5px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
 }
-
-/* @media only screen and (max-width: 1080px) { */
-/*   #RecommendsationsDisplay .grid-item img { */
-/*     width: 90px; */
-/*     height: 90px; */
-/*     border-radius: 7px; */
-/*     box-shadow: rgba(149, 157, 165, 0.5) 0px 0px 24px; */
-/*   } */
-/**/
-/*   #RecommendsationsDisplay .songGridContainer { */
-/*     display: grid; */
-/*     column-gap: 10px; */
-/*     row-gap: 10px; */
-/*     grid-template-columns: auto auto auto; */
-/*     margin: 50px auto 80px; */
-/*     width: 77%; */
-/*   } */
-/* } */

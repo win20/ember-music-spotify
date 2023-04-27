@@ -19,7 +19,7 @@ const RecommendationsDisplay = (props: SongsProp) => {
               >
                 <img src={song.album.images[0].url} alt="song cover art" />
               </a>
-              <span>test</span>
+              <span>{song.name}</span>
             </div>
           );
         })}
