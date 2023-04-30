@@ -1,34 +1,39 @@
 import './promodoro-timer.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, MutableRefObject, Dispatch, SetStateAction } from 'react';
 
-const PromodoroTimer = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+type Props = {
+  isDefaultTime: boolean;
+  setIsDefaultTime: Dispatch<SetStateAction<boolean>>;
+  startTime: { minutes: number; seconds: number };
+  minutes: number;
+  seconds: number;
+  minutesRef: MutableRefObject<number>;
+  secondsRef: MutableRefObject<number>;
+  setTimer: (minutes: number, seconds: number) => void;
+};
+
+const PromodoroTimer = (props: Props) => {
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   let startTime = {
-    minutes: 5,
-    seconds: 5,
+    minutes: 25,
+    seconds: 0,
   };
-
-  const [minutes, setMinutes] = useState(startTime.minutes);
-  const [seconds, setSeconds] = useState(startTime.seconds);
-
-  const secondsRef = useRef(seconds);
-  const minutesRef = useRef(minutes);
 
   const [intervalId, setIntervalId] = useState<number>(0);
 
   const startTimer = () => {
+    props.setIsDefaultTime(false);
     setIsPlaying(true);
+    console.log(props.minutesRef.current);
     let interval = setInterval(() => {
-      if (secondsRef.current >= 0) {
-        setSeconds(secondsRef.current - 1);
-        secondsRef.current--;
+      if (props.secondsRef.current >= 0) {
+        props.setTimer(props.minutesRef.current, props.secondsRef.current - 1);
       }
-      if (secondsRef.current < 0) {
-        setMinutes(minutesRef.current - 1);
-        minutesRef.current--;
-        setSeconds(59);
-        secondsRef.current = 59;
+      if (props.secondsRef.current < 0) {
+        props.setTimer(props.minutesRef.current - 1, props.secondsRef.current);
+        props.setTimer(props.minutesRef.current, 59);
+        props.secondsRef.current = 59;
       }
     }, 1000);
 
@@ -44,18 +49,27 @@ const PromodoroTimer = () => {
     clearInterval(intervalId);
     setIsPlaying(false);
 
-    setMinutes(startTime.minutes);
-    setSeconds(startTime.seconds);
+    props.setTimer(startTime.minutes, startTime.seconds);
 
-    minutesRef.current = startTime.minutes;
-    secondsRef.current = startTime.seconds;
+    props.minutesRef.current = startTime.minutes;
+    props.secondsRef.current = startTime.seconds;
   };
 
   return (
     <div className="PromodoroContainer">
-      <h1>
-        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-      </h1>
+      {props.isDefaultTime ? (
+        <h1>
+          {props.startTime.minutes}:
+          {props.startTime.seconds < 10
+            ? `0${props.startTime.seconds}`
+            : props.startTime.seconds}
+        </h1>
+      ) : (
+        <h1>
+          {props.minutes}:
+          {props.seconds < 10 ? `0${props.seconds}` : props.seconds}
+        </h1>
+      )}
 
       <div id="timerBottomButtons">
         {isPlaying ? (

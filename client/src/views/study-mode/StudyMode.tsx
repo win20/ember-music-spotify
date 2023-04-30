@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import Header from '@components/header/Header';
 import PromodoroTimer from '@components/promodoro-timer/PromodoroTimer';
 import PromodoroPlayer from '@components/promodoro-player/PromodoroPlayer';
@@ -5,14 +6,43 @@ import PromodoroInput from '@/components/promodoro-input/PromodoroInput';
 import { Helmet } from 'react-helmet';
 
 const StudyMode = () => {
+  const startTime = {
+    minutes: 25,
+    seconds: 0,
+  };
+
+  const [isDefaultTime, setIsDefaultTime] = useState<boolean>(true);
+  const [minutes, setMinutes] = useState<number>(startTime.minutes);
+  const [seconds, setSeconds] = useState<number>(startTime.seconds);
+
+  const minutesRef = useRef<number>(minutes);
+  const secondsRef = useRef<number>(seconds);
+
+  const setTimer = (minutes: number, seconds: number) => {
+    setIsDefaultTime(false);
+    setMinutes(minutes);
+    setSeconds(seconds);
+    minutesRef.current = minutes;
+    secondsRef.current = seconds;
+  };
+
   return (
     <div className="StudyModePage">
       <Helmet>
         <title>Ember Music - Study Mode</title>
       </Helmet>
       <Header />
-      <PromodoroInput />
-      <PromodoroTimer />
+      <PromodoroInput setTimer={setTimer} />
+      <PromodoroTimer
+        isDefaultTime={isDefaultTime}
+        setIsDefaultTime={setIsDefaultTime}
+        startTime={startTime}
+        minutes={minutes}
+        seconds={seconds}
+        minutesRef={minutesRef}
+        secondsRef={secondsRef}
+        setTimer={setTimer}
+      />
       <PromodoroPlayer />
     </div>
   );
