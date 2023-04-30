@@ -15,17 +15,16 @@ type Props = {
 const PromodoroTimer = (props: Props) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  let startTime = {
-    minutes: 25,
-    seconds: 0,
-  };
+  // let startTime = {
+  //   minutes: 25,
+  //   seconds: 0,
+  // };
 
   const [intervalId, setIntervalId] = useState<number>(0);
 
   const startTimer = () => {
     props.setIsDefaultTime(false);
     setIsPlaying(true);
-    console.log(props.minutesRef.current);
     let interval = setInterval(() => {
       if (props.secondsRef.current >= 0) {
         props.setTimer(props.minutesRef.current, props.secondsRef.current - 1);
@@ -49,10 +48,12 @@ const PromodoroTimer = (props: Props) => {
     clearInterval(intervalId);
     setIsPlaying(false);
 
-    props.setTimer(startTime.minutes, startTime.seconds);
+    // console.log(props.startTime);
 
-    props.minutesRef.current = startTime.minutes;
-    props.secondsRef.current = startTime.seconds;
+    props.setTimer(props.startTime.minutes, props.startTime.seconds);
+
+    props.minutesRef.current = props.startTime.minutes;
+    props.secondsRef.current = props.startTime.seconds;
   };
 
   return (
