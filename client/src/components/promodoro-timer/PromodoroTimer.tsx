@@ -1,7 +1,7 @@
 import './promodoro-timer.css';
 import { useState, MutableRefObject, Dispatch, SetStateAction } from 'react';
 
-type Props = {
+type Prop = {
   isDefaultTime: boolean;
   setIsDefaultTime: Dispatch<SetStateAction<boolean>>;
   startTime: { minutes: number; seconds: number };
@@ -12,19 +12,14 @@ type Props = {
   setTimer: (minutes: number, seconds: number) => void;
 };
 
-const PromodoroTimer = (props: Props) => {
+const PromodoroTimer = (props: Prop) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
-  // let startTime = {
-  //   minutes: 25,
-  //   seconds: 0,
-  // };
-
   const [intervalId, setIntervalId] = useState<number>(0);
 
   const startTimer = () => {
     props.setIsDefaultTime(false);
     setIsPlaying(true);
+
     let interval = setInterval(() => {
       if (props.secondsRef.current >= 0) {
         props.setTimer(props.minutesRef.current, props.secondsRef.current - 1);
@@ -47,8 +42,6 @@ const PromodoroTimer = (props: Props) => {
   const resetTimer = () => {
     clearInterval(intervalId);
     setIsPlaying(false);
-
-    // console.log(props.startTime);
 
     props.setTimer(props.startTime.minutes, props.startTime.seconds);
 

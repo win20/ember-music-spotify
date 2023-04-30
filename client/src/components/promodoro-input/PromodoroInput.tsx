@@ -39,6 +39,7 @@ const PromodoroInput = (props: Props) => {
           placeholder="Minutes"
           onKeyPress={preventNonNumeric}
           onChange={handleInput}
+          defaultValue={25}
         />
         <input
           id="seconds-input"
@@ -46,6 +47,7 @@ const PromodoroInput = (props: Props) => {
           placeholder="Seconds"
           onKeyPress={preventNonNumeric}
           onChange={handleInput}
+          defaultValue={0}
         />
         <button onClick={handleSubmit}>Edit</button>
       </div>
