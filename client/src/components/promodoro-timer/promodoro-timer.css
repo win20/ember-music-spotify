@@ -34,6 +34,12 @@
   cursor: pointer;
 }
 
+iframe {
+  border: none;
+  width: 80%;
+  margin-top: 70px;
+}
+
 @media only screen and (max-width: 1180px) {
   .PromodoroContainer h1 {
     font-size: 70px;
