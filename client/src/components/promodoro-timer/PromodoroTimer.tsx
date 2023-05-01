@@ -15,6 +15,11 @@ type Prop = {
 const PromodoroTimer = (props: Prop) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [intervalId, setIntervalId] = useState<number>(0);
+  const spotifyEmbed = (
+    document.querySelector(
+      'iframe[src*="spotify.com/embed"]'
+    ) as HTMLIFrameElement
+  ).contentWindow;
 
   const startTimer = () => {
     props.setIsDefaultTime(false);
@@ -32,11 +37,14 @@ const PromodoroTimer = (props: Prop) => {
     }, 1000);
 
     setIntervalId(interval);
+
+    spotifyEmbed?.postMessage({ command: 'toggle' }, '*');
   };
 
   const pauseTimer = () => {
     clearInterval(intervalId);
     setIsPlaying(false);
+    spotifyEmbed?.postMessage({ command: 'toggle' }, '*');
   };
 
   const resetTimer = () => {
@@ -80,6 +88,13 @@ const PromodoroTimer = (props: Prop) => {
           Reset
         </button>
       </div>
+      <iframe
+        src="https://open.spotify.com/embed/track/1Acgi7wxVD9OF3iQnFe8Q4?utm_source=generator"
+        width="100%"
+        height="152"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
     </div>
   );
 };

@@ -17,6 +17,7 @@
   border-radius: 25px;
   font-size: 20px;
   margin-right: 25px;
+  font-weight: bold;
 }
 
 #timerResetBtn {
@@ -25,6 +26,7 @@
   padding: 10px 20px;
   border-radius: 25px;
   font-size: 20px;
+  font-weight: bold;
 }
 
 #timerStartBtn:hover,

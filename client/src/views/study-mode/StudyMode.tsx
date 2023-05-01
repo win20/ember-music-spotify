@@ -57,7 +57,7 @@ const StudyMode = () => {
         secondsRef={secondsRef}
         setTimer={updateTimer}
       />
-      <PromodoroPlayer />
+      {/* <PromodoroPlayer /> */}
     </div>
   );
 };

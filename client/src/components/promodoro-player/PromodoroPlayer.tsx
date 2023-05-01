@@ -1,18 +1,25 @@
 import './promodoro-player.css';
-import coverImg from '@assets/imgs/cover.jpeg';
 
 const PromodoroPlayer = () => {
+  const playSong = () => {
+    const spotifyEmbed = (
+      document.querySelector(
+        'iframe[src*="spotify.com/embed"]'
+      ) as HTMLIFrameElement
+    ).contentWindow;
+    spotifyEmbed?.postMessage({ command: 'toggle' }, '*');
+  };
+
   return (
-    <div className="PromodoroPlayer">
-      <div id="miniPlayerContainer">
-        <div id="miniPlayerLeft">
-          <img src={coverImg} alt="song cover" />
-        </div>
-        <div id="miniPlayerRight">
-          <p id="songName">song name</p>
-          <p id="artist">artist</p>
-        </div>
-      </div>
+    <div id="PromodoroPlayer">
+      <button onClick={playSong}>Play</button>
+      <iframe
+        src="https://open.spotify.com/embed/track/1Acgi7wxVD9OF3iQnFe8Q4?utm_source=generator"
+        width="100%"
+        height="152"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
     </div>
   );
 };
