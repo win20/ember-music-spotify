@@ -37,6 +37,7 @@ interface Song {
   id: string;
   name: string;
   uri: string;
+  duration_ms: number;
   external_urls: {
     spotify: string;
   };
