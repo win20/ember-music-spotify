@@ -8,5 +8,6 @@ router.get('/getFeaturedPlaylists', spotifyController.getFeaturedPlaylists);
 router.get('/getDailySong', spotifyController.getDailySong);
 router.get('/getRecommendations', spotifyController.getRecommendations);
 router.get('/searchItem', spotifyController.searchItem);
+router.get('/spotifyLogin', spotifyController.spotifyLogin);
 
 module.exports = router;

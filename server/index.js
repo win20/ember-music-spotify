@@ -6,12 +6,12 @@ const app = express();
 app.use(express());
 app.use(cors());
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  // res.header(
+  //   'Access-Control-Allow-Headers',
+  //   'Origin, X-Requested-With, Content-Type, Accept'
+  // );
   next();
 });
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send(process.env.SPOTIFY_CLIENT_ID);
+  res.send({ message: 'hello' });
 });
 
 app.get('/api/getSpotifyToken', (req, res) => {});

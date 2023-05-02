@@ -8,18 +8,14 @@ import Home from './views/home/Home';
 
 function App() {
   useEffect(() => {
-    getSpotifyAccessToken()
-      .then((response) => {
-        console.log('Success access token');
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const getSpotifyAccessToken = async () => {
+      const spotifyToken = await axios.get(
+        `${import.meta.env.VITE_API_URL_PREFIX}spotify`
+      );
+      console.log(spotifyToken);
+    };
+    getSpotifyAccessToken();
   }, []);
-
-  const getSpotifyAccessToken = async () => {
-    await axios.get(`${import.meta.env.VITE_API_URL_PREFIX}spotify`);
-  };
 
   return (
     <div className="App">

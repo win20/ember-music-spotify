@@ -39,7 +39,20 @@ exports.getSpotifyToken = (req, res) => {
     .catch((error) => res.send(error));
   access_token.then((response) => {
     spotify_access_token = response;
+    res.send(spotify_access_token);
   });
+};
+
+exports.spotifyLogin = (req, res) => {
+  res.redirect(
+    'https://accounts.spotify.com/authorize?' +
+      querystring.stringify({
+        response_type: 'code',
+        client_id: client_id,
+        redirect_uri: 'http://localhost:3001/spotify/spotifyLogin',
+      })
+  );
+  // res.send('test');
 };
 
 exports.getTrack = (req, res) => {

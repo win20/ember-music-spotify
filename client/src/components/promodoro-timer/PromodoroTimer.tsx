@@ -41,7 +41,7 @@ const PromodoroTimer = (props: Prop) => {
         });
     };
 
-    getRecommendations();
+    // getRecommendations();
   }, []);
 
   const startTimer = () => {
