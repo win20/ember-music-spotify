@@ -23,6 +23,7 @@ type Prop = {
 const PromodoroTimer = (props: Prop) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [intervalId, setIntervalId] = useState<number>(0);
+  const [songId, setSongId] = useState<string>('');
 
   useEffect(() => {
     const getRecommendations = async () => {
@@ -36,8 +37,9 @@ const PromodoroTimer = (props: Prop) => {
           },
         })
         .then((response) => {
-          // console.log(response.data.tracks[0]);
-          console.log((response.data.tracks[0] as Song).duration_ms);
+          // console.log((response.data.tracks[0] as Song).id);
+          // console.log((response.data.tracks[0] as Song).duration_ms);
+          setSongId((response.data.tracks[0] as Song).id);
         });
     };
 
@@ -90,6 +92,11 @@ const PromodoroTimer = (props: Prop) => {
     props.secondsRef.current = props.startTime.seconds;
   };
 
+  const test = async () => {
+    const response = await axios.get('http://localhost:3001/');
+    console.log(response);
+  };
+
   return (
     <div className="PromodoroContainer">
       {props.isDefaultTime ? (
@@ -120,14 +127,15 @@ const PromodoroTimer = (props: Prop) => {
         <button id="timerResetBtn" onClick={resetTimer}>
           Reset
         </button>
+        <button onClick={test}>test</button>
       </div>
-      <iframe
-        src="https://open.spotify.com/embed/track/1r8ZCjfrQxoy2wVaBUbpwg?utm_source=generator"
-        width="100%"
-        height="152"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-      ></iframe>
+      {/* <iframe */}
+      {/*   id="spotifyEmbed" */}
+      {/*   src={`https://open.spotify.com/embed/track/${songId}?utm_source=generator`} */}
+      {/*   width="100%" */}
+      {/*   height="152" */}
+      {/*   loading="eager" */}
+      {/* ></iframe> */}
     </div>
   );
 };

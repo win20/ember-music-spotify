@@ -43,6 +43,35 @@ exports.getSpotifyToken = (req, res) => {
   });
 };
 
+exports.getAuthToken = (req, res) => {
+  const code = req.query.code;
+
+  if (code !== null) {
+    axios
+      .post(
+        'https://accounts.spotify.com/api/token',
+        serialize({
+          grant_type: 'authorization_code',
+          code: code,
+          redirect_uri: 'http://localhost:3001/spotify/spotifyAuthToken',
+        }),
+        {
+          headers: {
+            Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
+      .then((response) => {
+        // res.send(response.data.access_token);
+
+        req.session.spotify_access_token = response.data.access_token;
+        // res.redirect('http://localhost:3001/');
+        res.redirect('http://localhost:5173/studyMode');
+      });
+  }
+};
+
 exports.spotifyLogin = (req, res) => {
   res.redirect(
     'https://accounts.spotify.com/authorize?' +

@@ -48,10 +48,10 @@ const StudyMode = () => {
     secondsRef.current = seconds;
   };
 
-  const clientId = 'ae1b2db7d46c4f10865278144d32dcaf';
-  const redirectUrl = 'http://localhost:5173/studyMode';
-  const authEndpoint = 'https://accounts.spotify.com/authorize';
-  const responseType = 'code';
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const redirectUrl = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
+  const authEndpoint = import.meta.env.VITE_SPOTIFY_AUTH_ENDPOINT;
+  const responseType = import.meta.env.VITE_SPOTIFY_AUTH_RESPONSE_TYPE;
 
   return (
     <div className="StudyModePage">

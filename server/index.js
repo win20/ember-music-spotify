@@ -1,10 +1,18 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 app.use(express());
 app.use(cors());
+app.use(
+  session({
+    secret: 'testSecret',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -21,7 +29,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send({ message: 'hello' });
+  res.json({ message: req.session.spotify_access_token });
+  // res.json({ message: 'hello' });
 });
 
 app.get('/api/getSpotifyToken', (req, res) => {});
