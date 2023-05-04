@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import axios from 'axios';
+import { useState, useRef, useEffect } from 'react';
 import Header from '@components/header/Header';
 import PromodoroTimer from '@components/promodoro-timer/PromodoroTimer';
 import PromodoroInput from '@/components/promodoro-input/PromodoroInput';
@@ -21,14 +20,6 @@ const StudyMode = () => {
   const minutesRef = useRef<number>(minutes);
   const secondsRef = useRef<number>(seconds);
 
-  // const login = async () => {
-  //   // axios.get('http://localhost:3001/spotify/spotifylogin');
-  //   axios
-  //     .get('http://localhost:3001/spotify/spotifylogin')
-  //     .then((response) => response)
-  //     .then((data) => console.log(data));
-  // };
-
   const editTimer = (minutes: number, seconds: number) => {
     if (!isNaN(minutes) && !isNaN(seconds)) {
       setIsDefaultTime(false);
@@ -48,23 +39,12 @@ const StudyMode = () => {
     secondsRef.current = seconds;
   };
 
-  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUrl = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
-  const authEndpoint = import.meta.env.VITE_SPOTIFY_AUTH_ENDPOINT;
-  const responseType = import.meta.env.VITE_SPOTIFY_AUTH_RESPONSE_TYPE;
-
   return (
     <div className="StudyModePage">
       <Helmet>
         <title>Ember Music - Study Mode</title>
       </Helmet>
       <Header />
-      {/* <button onClick={login}>Login</button> */}
-      <a
-        href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=${responseType}`}
-      >
-        Login
-      </a>
       <PromodoroInput setTimer={editTimer} />
       <PromodoroTimer
         isDefaultTime={isDefaultTime}
