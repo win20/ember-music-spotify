@@ -38,6 +38,7 @@ iframe {
   border: none;
   width: 80%;
   margin-top: 70px;
+  pointer-events: none;
 }
 
 @media only screen and (max-width: 1180px) {

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Header from '@components/header/Header';
 import PromodoroTimer from '@components/promodoro-timer/PromodoroTimer';
 import PromodoroInput from '@/components/promodoro-input/PromodoroInput';

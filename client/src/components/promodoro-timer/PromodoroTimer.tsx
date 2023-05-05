@@ -23,28 +23,44 @@ type Prop = {
 const PromodoroTimer = (props: Prop) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [intervalId, setIntervalId] = useState<number>(0);
-  const [songId, setSongId] = useState<string>('');
+  const [songsList, setSongsList] = useState<Song[] | undefined>(undefined);
+  const [songToShowIndex, setSongToShowIndex] = useState<number>(0);
+  const [currentSongDuration, setCurrentSongDuration] = useState<number>(0);
+
+  const getRecommendations = async (isRefresh = false) => {
+    const apiUrl = import.meta.env.VITE_API_URL_PREFIX;
+    await axios
+      .get(`${apiUrl}spotify/getRecommendations`, {
+        params: {
+          genre: 'classical',
+          artistId: '1JVGbsUCqcTgrQP6qc3LEe',
+          songId: '2YFtpiy2WoAQVQbM1SIwES',
+        },
+      })
+      .then((response) => {
+        setSongsList(response.data.tracks);
+      });
+  };
 
   useEffect(() => {
-    const getRecommendations = async () => {
-      const apiUrl = import.meta.env.VITE_API_URL_PREFIX;
-      await axios
-        .get(`${apiUrl}spotify/getRecommendations`, {
-          params: {
-            genre: 'classical',
-            artistId: '1JVGbsUCqcTgrQP6qc3LEe',
-            songId: '2YFtpiy2WoAQVQbM1SIwES',
-          },
-        })
-        .then((response) => {
-          // console.log((response.data.tracks[0] as Song).id);
-          // console.log((response.data.tracks[0] as Song).duration_ms);
-          setSongId((response.data.tracks[0] as Song).id);
-        });
-    };
-
-    // getRecommendations();
+    getRecommendations();
   }, []);
+
+  const displaySpotifyEmbeds = () => {
+    if (songsList !== undefined) {
+      // setCurrentSongDuration(songsList[songToShowIndex].duration_ms);
+      return (
+        <iframe
+          id="spotifyEmbed"
+          src={`https://open.spotify.com/embed/track/${songsList[songToShowIndex].id}?utm_source=generator&autoplay=1`}
+          width="100%"
+          height="152"
+          loading="lazy"
+          allow="autoplay;"
+        ></iframe>
+      );
+    }
+  };
 
   const startTimer = () => {
     props.setIsDefaultTime(false);
@@ -69,6 +85,18 @@ const PromodoroTimer = (props: Prop) => {
     ).contentWindow;
 
     spotifyEmbed?.postMessage({ command: 'toggle' }, '*');
+
+    let spotifyInterval = setInterval(() => {
+      console.log('next song');
+      setSongToShowIndex(songToShowIndex + 1);
+
+      const spotifyEmbed = (
+        document.querySelector(
+          'iframe[src*="spotify.com/embed"]'
+        ) as HTMLIFrameElement
+      ).contentWindow;
+      spotifyEmbed?.postMessage({ command: 'toggle' }, '*');
+    }, 5000);
   };
 
   const pauseTimer = () => {
@@ -129,6 +157,7 @@ const PromodoroTimer = (props: Prop) => {
         </button>
         <button onClick={test}>test</button>
       </div>
+      {displaySpotifyEmbeds()}
       {/* <iframe */}
       {/*   id="spotifyEmbed" */}
       {/*   src={`https://open.spotify.com/embed/track/${songId}?utm_source=generator`} */}
