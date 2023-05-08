@@ -37,8 +37,12 @@ const Header = () => {
           Recommendations
         </Link>
 
+        {/* <Link to="/studyMode" id="studymode-link"> */}
+        {/*   Study Mode */}
+        {/* </Link> */}
+
         <Link to="/studyMode" id="studymode-link">
-          Study Mode
+          Lyrics viewer
         </Link>
       </div>
       <img id="menu-icon" src={menuIcon} onClick={handleMenuClick} />
