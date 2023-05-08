@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const spotifyController = require('../controllers/spotifyController');
+import * as spotifyController from '../controllers/spotifyController';
 
 router.get('/', spotifyController.getSpotifyToken);
 router.get('/getTrack', spotifyController.getTrack);
@@ -9,6 +9,6 @@ router.get('/getDailySong', spotifyController.getDailySong);
 router.get('/getRecommendations', spotifyController.getRecommendations);
 router.get('/searchItem', spotifyController.searchItem);
 router.get('/spotifyLogin', spotifyController.spotifyLogin);
-router.get('/spotifyAuthToken', spotifyController.getAuthToken);
+// router.get('/spotifyAuthToken', spotifyController.getAuthToken);
 
 module.exports = router;

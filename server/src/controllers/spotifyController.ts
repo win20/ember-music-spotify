@@ -1,8 +1,9 @@
-const axios = require('axios');
-const { response } = require('express');
-const express = require('express');
-const querystring = require('querystring');
-require('dotenv').config();
+import axios from 'axios';
+import express, { Request, Response } from 'express';
+import querystring from 'querystring';
+import { config } from 'dotenv';
+
+config();
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_SECRET;
@@ -10,8 +11,8 @@ const client_secret = process.env.SPOTIFY_SECRET;
 const app = express();
 
 const serialize = function (obj) {
-  var str = [];
-  for (var p in obj) {
+  let str = [];
+  for (let p in obj) {
     if (obj.hasOwnProperty(p)) {
       str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
     }
@@ -20,7 +21,7 @@ const serialize = function (obj) {
 };
 
 let spotify_access_token = '';
-exports.getSpotifyToken = (req, res) => {
+export const getSpotifyToken = (req?: Request, res?: Response): void => {
   const promise = axios.post(
     'https://accounts.spotify.com/api/token',
     serialize({
@@ -34,7 +35,7 @@ exports.getSpotifyToken = (req, res) => {
     }
   );
 
-  access_token = promise
+  const access_token = promise
     .then((response) => response.data.access_token)
     .catch((error) => res.send(error));
   access_token.then((response) => {
@@ -43,48 +44,48 @@ exports.getSpotifyToken = (req, res) => {
   });
 };
 
-exports.getAuthToken = (req, res) => {
-  const code = req.query.code;
+// export const getAuthToken = (req: Request, res: Response) => {
+//   const code = req.query.code;
+//
+//   if (code !== null) {
+//     axios
+//       .post(
+//         'https://accounts.spotify.com/api/token',
+//         serialize({
+//           grant_type: 'authorization_code',
+//           code: code,
+//           redirect_uri: 'http://localhost:3001/spotify/spotifyAuthToken',
+//         }),
+//         {
+//           headers: {
+//             Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//           },
+//         }
+//       )
+//       .then((response) => {
+//         // res.send(response.data.access_token);
+//
+//         req.session.spotify_access_token = response.data.access_token;
+//         // res.redirect('http://localhost:3001/');
+//         res.redirect('http://localhost:5173/studyMode');
+//       });
+//   }
+// };
 
-  if (code !== null) {
-    axios
-      .post(
-        'https://accounts.spotify.com/api/token',
-        serialize({
-          grant_type: 'authorization_code',
-          code: code,
-          redirect_uri: 'http://localhost:3001/spotify/spotifyAuthToken',
-        }),
-        {
-          headers: {
-            Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        }
-      )
-      .then((response) => {
-        // res.send(response.data.access_token);
-
-        req.session.spotify_access_token = response.data.access_token;
-        // res.redirect('http://localhost:3001/');
-        res.redirect('http://localhost:5173/studyMode');
-      });
-  }
-};
-
-exports.spotifyLogin = (req, res) => {
+export const spotifyLogin = (req: Request, res: Response) => {
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
         response_type: 'code',
-        client_id: client_id,
+        client_id,
         redirect_uri: 'http://localhost:3001/spotify/spotifyLogin',
       })
   );
   // res.send('test');
 };
 
-exports.getTrack = (req, res) => {
+export const getTrack = (req: Request, res: Response) => {
   const trackToGet = req.query.track;
   axios
     .get(`https://api.spotify.com/v1/tracks/${trackToGet}`, {
@@ -95,7 +96,7 @@ exports.getTrack = (req, res) => {
     });
 };
 
-exports.getFeaturedPlaylists = (req, res) => {
+export const getFeaturedPlaylists = (req: Request, res: Response) => {
   axios
     .get(`https://api.spotify.com/v1/browse/featured-playlists`, {
       headers: { Authorization: 'Bearer ' + spotify_access_token },
@@ -105,13 +106,13 @@ exports.getFeaturedPlaylists = (req, res) => {
     });
 };
 
-exports.getDailySong = (req, res) => {
+export const getDailySong = (req: Request, res: Response) => {
   axios.get(process.env.DYNAMODB_URL).then((response) => {
     res.send(response.data);
   });
 };
 
-exports.getRecommendations = (req, res) => {
+export const getRecommendations = (req: Request, res: Response) => {
   axios
     .get('https://api.spotify.com/v1/recommendations', {
       headers: {
@@ -128,8 +129,8 @@ exports.getRecommendations = (req, res) => {
     });
 };
 
-exports.searchItem = (req, res) => {
-  this.getSpotifyToken();
+export const searchItem = (req: Request, res: Response) => {
+  getSpotifyToken();
   axios
     .get('https://api.spotify.com/v1/search', {
       headers: {
