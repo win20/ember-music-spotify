@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Request, Response } from 'express';
 
 type SpotifyTokenReturn = {
   data: {
@@ -9,11 +8,11 @@ type SpotifyTokenReturn = {
   };
 };
 
-class SpotifyFacade {
+class MusicFacade {
   private client_id: string = process.env.SPOTIFY_CLIENT_ID;
   private client_secret: string = process.env.SPOTIFY_SECRET;
 
-  private getSpotifyToken(): string {
+  public getSpotifyToken(): Promise<any> {
     const promise = axios.post(
       'https://accounts.spotify.com/api/token',
       this.serialize({
@@ -28,17 +27,17 @@ class SpotifyFacade {
       }
     );
 
-    let returnValue = '';
+    // console.log(promise);
 
-    promise
-      .then((response) => {
-        return response.data.access_token;
-      })
-      .catch((error) => {
-        return error;
-      });
+    return promise;
 
-    return returnValue;
+    // promise
+    //   .then((response) => {
+    //     return response.data.access_token;
+    //   })
+    //   .catch((error) => {
+    //     return error;
+    //   });
   }
 
   private getTrack(trackToGet: string, spotify_access_token: string) {
@@ -65,6 +64,29 @@ class SpotifyFacade {
     axios.get(process.env.DYNAMODB_URL).then((response) => {
       return response.data;
     });
+  }
+
+  private searchItem(
+    spotify_access_token: string,
+    searchType: any,
+    search: any
+  ) {
+    this.getSpotifyToken();
+
+    let returnValue = undefined;
+    axios
+      .get('https://api.spotify.com/v1/search', {
+        headers: {
+          Authorization: 'Bearer ' + spotify_access_token,
+        },
+        params: {
+          q: `${searchType}:${search}`,
+          type: searchType,
+        },
+      })
+      .then((response) => {
+        returnValue = response.data;
+      });
   }
 
   private getRecommendations(
@@ -103,3 +125,5 @@ class SpotifyFacade {
     return str.join('&');
   }
 }
+
+export default MusicFacade;
