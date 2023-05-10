@@ -22,7 +22,6 @@ app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'hello' });
-  // console.log('test');
 });
 
 app.get('/api/getSpotifyToken', (req: Request, res: Response) => {});
