@@ -2,7 +2,7 @@ import axios from 'axios';
 import express, { Request, Response } from 'express';
 import querystring from 'querystring';
 import { config } from 'dotenv';
-import MusicFacade from '../services/MusicFacade';
+
 config();
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -21,36 +21,27 @@ const serialize = function (obj) {
 };
 
 let spotify_access_token = '';
-// export const getSpotifyToken = (req?: Request, res?: Response): void => {
-//   const promise = axios.post(
-//     'https://accounts.spotify.com/api/token',
-//     serialize({
-//       grant_type: 'client_credentials',
-//     }),
-//     {
-//       headers: {
-//         Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//     }
-//   );
-//
-//   const access_token = promise
-//     .then((response) => response.data.access_token)
-//     .catch((error) => res.send(error));
-//   access_token.then((response) => {
-//     spotify_access_token = response;
-//     res.send(spotify_access_token);
-//   });
-// };
+export const getSpotifyToken = (req?: Request, res?: Response): void => {
+  const promise = axios.post(
+    'https://accounts.spotify.com/api/token',
+    serialize({
+      grant_type: 'client_credentials',
+    }),
+    {
+      headers: {
+        Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }
+  );
 
-export const getSpotifyToken = async (req?: Request, res?: Response) => {
-  const musicFacade = new MusicFacade();
-
-  const access_token = await musicFacade.getSpotifyToken();
-  // console.log(access_token);
-
-  res.json(access_token.data.access_token);
+  const access_token = promise
+    .then((response) => response.data.access_token)
+    .catch((error) => res.send(error));
+  access_token.then((response) => {
+    spotify_access_token = response;
+    res.send(spotify_access_token);
+  });
 };
 
 // export const getAuthToken = (req: Request, res: Response) => {
@@ -81,6 +72,18 @@ export const getSpotifyToken = async (req?: Request, res?: Response) => {
 //       });
 //   }
 // };
+
+export const spotifyLogin = (req: Request, res: Response) => {
+  res.redirect(
+    'https://accounts.spotify.com/authorize?' +
+      querystring.stringify({
+        response_type: 'code',
+        client_id,
+        redirect_uri: 'http://localhost:3001/spotify/spotifyLogin',
+      })
+  );
+  // res.send('test');
+};
 
 export const getTrack = (req: Request, res: Response) => {
   const trackToGet = req.query.track;
