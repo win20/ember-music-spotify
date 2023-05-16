@@ -4,14 +4,14 @@ require('dotenv').config();
 
 const app = express();
 app.use(express());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+};
+app.use(cors(corsOptions));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '*');
-  // res.header(
-  //   'Access-Control-Allow-Headers',
-  //   'Origin, X-Requested-With, Content-Type, Accept'
-  // );
   next();
 });
 
@@ -24,7 +24,10 @@ app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'hello' });
 });
 
-app.get('/api/getSpotifyToken', (req: Request, res: Response) => {});
+app.get('/test-route', (req: Request, res: Response, next: NextFunction) => {
+  console.log('cors route');
+  res.json({ msg: 'CORS enabled' });
+});
 
 app.use('/spotify', require('./routes/spotifyRoutes'));
 

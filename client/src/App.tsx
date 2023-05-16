@@ -15,6 +15,18 @@ function App() {
       console.log(spotifyToken);
     };
     getSpotifyAccessToken();
+
+    // const test = async () => {
+    //   await axios
+    //     .get(`${import.meta.env.VITE_API_URL_PREFIX}spotify/searchItem`, {
+    //       params: { search: 'ksi', searchType: 'artist' },
+    //     })
+    //     .then((response) => {
+    //       console.log(response.data);
+    //     });
+    // };
+    //
+    // test();
   }, []);
 
   return (

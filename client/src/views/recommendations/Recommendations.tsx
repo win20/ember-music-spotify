@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import './recommendations.css';
 import Song from '@models/Song';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 const Recommendations = () => {
   const [songsList, setSongsList] = useState<Song[]>();
@@ -34,6 +35,16 @@ const Recommendations = () => {
     setSongsList(songs);
   };
 
+  const testFunc = async () => {
+    await axios
+      .get(`${import.meta.env.VITE_API_URL_PREFIX}spotify/searchItem`, {
+        params: { search: 'ksi', searchType: 'artist' },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
+
   return (
     <div>
       <Helmet>
@@ -54,6 +65,7 @@ const Recommendations = () => {
           <div></div>
         )}
       </div>
+      <button onClick={testFunc}>test</button>
       <div id="page-bottom"></div>
     </div>
   );

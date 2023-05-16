@@ -130,7 +130,6 @@ export const getRecommendations = (req: Request, res: Response) => {
 };
 
 export const searchItem = (req: Request, res: Response) => {
-  getSpotifyToken();
   axios
     .get('https://api.spotify.com/v1/search', {
       headers: {
