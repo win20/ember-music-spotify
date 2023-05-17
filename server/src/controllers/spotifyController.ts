@@ -2,6 +2,7 @@ import axios from 'axios';
 import express, { Request, Response } from 'express';
 import querystring from 'querystring';
 import { config } from 'dotenv';
+import MusicFacade from '../services/MusicFacade';
 
 config();
 
@@ -21,57 +22,32 @@ const serialize = function (obj) {
 };
 
 let spotify_access_token = '';
-export const getSpotifyToken = (req?: Request, res?: Response): void => {
-  const promise = axios.post(
-    'https://accounts.spotify.com/api/token',
-    serialize({
-      grant_type: 'client_credentials',
-    }),
-    {
-      headers: {
-        Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  );
+export const getSpotifyToken = async (req: Request, res: Response) => {
+  // const promise = axios.post(
+  //   'https://accounts.spotify.com/api/token',
+  //   serialize({
+  //     grant_type: 'client_credentials',
+  //   }),
+  //   {
+  //     headers: {
+  //       Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //   }
+  // );
+  //
+  // const access_token = promise
+  //   .then((response) => response.data.access_token)
+  //   .catch((error) => res.send(error));
+  // access_token.then((response) => {
+  //   spotify_access_token = response;
+  //   res.send(spotify_access_token);
+  // });
 
-  const access_token = promise
-    .then((response) => response.data.access_token)
-    .catch((error) => res.send(error));
-  access_token.then((response) => {
-    spotify_access_token = response;
-    res.send(spotify_access_token);
-  });
+  const facade = new MusicFacade();
+  const response = await facade.getSpotifyToken();
+  res.send(response.data.access_token);
 };
-
-// export const getAuthToken = (req: Request, res: Response) => {
-//   const code = req.query.code;
-//
-//   if (code !== null) {
-//     axios
-//       .post(
-//         'https://accounts.spotify.com/api/token',
-//         serialize({
-//           grant_type: 'authorization_code',
-//           code: code,
-//           redirect_uri: 'http://localhost:3001/spotify/spotifyAuthToken',
-//         }),
-//         {
-//           headers: {
-//             Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
-//             'Content-Type': 'application/x-www-form-urlencoded',
-//           },
-//         }
-//       )
-//       .then((response) => {
-//         // res.send(response.data.access_token);
-//
-//         req.session.spotify_access_token = response.data.access_token;
-//         // res.redirect('http://localhost:3001/');
-//         res.redirect('http://localhost:5173/studyMode');
-//       });
-//   }
-// };
 
 export const spotifyLogin = (req: Request, res: Response) => {
   res.redirect(
