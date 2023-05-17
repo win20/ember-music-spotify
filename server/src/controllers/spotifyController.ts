@@ -22,31 +22,18 @@ const serialize = function (obj) {
 };
 
 let spotify_access_token = '';
-export const getSpotifyToken = async (req: Request, res: Response) => {
-  // const promise = axios.post(
-  //   'https://accounts.spotify.com/api/token',
-  //   serialize({
-  //     grant_type: 'client_credentials',
-  //   }),
-  //   {
-  //     headers: {
-  //       Authorization: 'Basic ' + btoa(client_id + ':' + client_secret),
-  //       'Content-Type': 'application/x-www-form-urlencoded',
-  //     },
-  //   }
-  // );
-  //
-  // const access_token = promise
-  //   .then((response) => response.data.access_token)
-  //   .catch((error) => res.send(error));
-  // access_token.then((response) => {
-  //   spotify_access_token = response;
-  //   res.send(spotify_access_token);
-  // });
 
-  const facade = new MusicFacade();
-  const response = await facade.getSpotifyToken();
-  res.send(response.data.access_token);
+const musicFacade = new MusicFacade();
+export const getSpotifyToken = async (res: Response) => {
+  try {
+    const response = await musicFacade.getSpotifyToken();
+    spotify_access_token = response.data.access_token;
+
+    res.json({ data: response.data });
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 export const spotifyLogin = (req: Request, res: Response) => {

@@ -12,8 +12,8 @@ class MusicFacade {
   private client_id: string = process.env.SPOTIFY_CLIENT_ID;
   private client_secret: string = process.env.SPOTIFY_SECRET;
 
-  public getSpotifyToken(): Promise<any> {
-    const promise = axios.post(
+  public async getSpotifyToken(): Promise<any> {
+    const promise = await axios.post(
       'https://accounts.spotify.com/api/token',
       this.serialize({
         grant_type: 'client_credentials',
@@ -26,18 +26,7 @@ class MusicFacade {
         },
       }
     );
-
-    // console.log(promise);
-
     return promise;
-
-    // promise
-    //   .then((response) => {
-    //     return response.data.access_token;
-    //   })
-    //   .catch((error) => {
-    //     return error;
-    //   });
   }
 
   private getTrack(trackToGet: string, spotify_access_token: string) {
