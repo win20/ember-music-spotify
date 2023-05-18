@@ -22,8 +22,8 @@ const serialize = function (obj) {
 };
 
 let spotify_access_token = '';
-
 const musicFacade = new MusicFacade();
+
 export const getSpotifyToken = async (res: Response) => {
   try {
     const response = await musicFacade.getSpotifyToken();
@@ -34,18 +34,6 @@ export const getSpotifyToken = async (res: Response) => {
     console.log(error);
     res.json({ error });
   }
-};
-
-export const spotifyLogin = (req: Request, res: Response) => {
-  res.redirect(
-    'https://accounts.spotify.com/authorize?' +
-      querystring.stringify({
-        response_type: 'code',
-        client_id,
-        redirect_uri: 'http://localhost:3001/spotify/spotifyLogin',
-      })
-  );
-  // res.send('test');
 };
 
 export const getTrack = (req: Request, res: Response) => {
