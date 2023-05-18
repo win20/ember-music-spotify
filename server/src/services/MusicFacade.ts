@@ -26,17 +26,22 @@ class MusicFacade {
         },
       }
     );
+
     return promise;
   }
 
-  private getTrack(trackToGet: string, spotify_access_token: string) {
-    axios
-      .get(`https://api.spotify.com/v1/tracks/${trackToGet}`, {
+  public async getTrack(
+    trackToGet: string,
+    spotify_access_token: string
+  ): Promise<any> {
+    const promise = await axios.get(
+      `https://api.spotify.com/v1/tracks/${trackToGet}`,
+      {
         headers: { Authorization: 'Bearer ' + spotify_access_token },
-      })
-      .then((response) => {
-        return response.data;
-      });
+      }
+    );
+
+    return promise;
   }
 
   private getFeaturedPlaylists(spotify_access_token: string) {

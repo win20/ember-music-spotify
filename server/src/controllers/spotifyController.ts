@@ -24,27 +24,38 @@ const serialize = function (obj) {
 let spotify_access_token = '';
 const musicFacade = new MusicFacade();
 
-export const getSpotifyToken = async (res: Response) => {
+export const getSpotifyToken = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getSpotifyToken();
     spotify_access_token = response.data.access_token;
 
     res.json({ data: response.data });
   } catch (error) {
-    console.log(error);
     res.json({ error });
   }
 };
 
-export const getTrack = (req: Request, res: Response) => {
-  const trackToGet = req.query.track;
-  axios
-    .get(`https://api.spotify.com/v1/tracks/${trackToGet}`, {
-      headers: { Authorization: 'Bearer ' + spotify_access_token },
-    })
-    .then((response) => {
-      res.send(response.data);
-    });
+export const getTrack = async (req: Request, res: Response) => {
+  const trackToGet = req.query.track as string;
+  // axios
+  //   .get(`https://api.spotify.com/v1/tracks/${trackToGet}`, {
+  //     headers: { Authorization: 'Bearer ' + spotify_access_token },
+  //   })
+  //   .then((response) => {
+  //     // res.send(response.data);
+  //     res.json({ data: response.data });
+  //   });
+  //
+  // console.log(spotify_access_token);
+  try {
+    const response = await musicFacade.getTrack(
+      trackToGet,
+      spotify_access_token
+    );
+    res.json({ data: response.data });
+  } catch (error) {
+    res.json({ error });
+  }
 };
 
 export const getFeaturedPlaylists = (req: Request, res: Response) => {
