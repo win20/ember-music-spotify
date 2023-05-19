@@ -37,16 +37,6 @@ export const getSpotifyToken = async (req: Request, res: Response) => {
 
 export const getTrack = async (req: Request, res: Response) => {
   const trackToGet = req.query.track as string;
-  // axios
-  //   .get(`https://api.spotify.com/v1/tracks/${trackToGet}`, {
-  //     headers: { Authorization: 'Bearer ' + spotify_access_token },
-  //   })
-  //   .then((response) => {
-  //     // res.send(response.data);
-  //     res.json({ data: response.data });
-  //   });
-  //
-  // console.log(spotify_access_token);
   try {
     const response = await musicFacade.getTrack(
       trackToGet,
@@ -58,14 +48,15 @@ export const getTrack = async (req: Request, res: Response) => {
   }
 };
 
-export const getFeaturedPlaylists = (req: Request, res: Response) => {
-  axios
-    .get(`https://api.spotify.com/v1/browse/featured-playlists`, {
-      headers: { Authorization: 'Bearer ' + spotify_access_token },
-    })
-    .then((response) => {
-      res.send(response.data);
-    });
+export const getFeaturedPlaylists = async (req: Request, res: Response) => {
+  try {
+    const response = await musicFacade.getFeaturedPlaylists(
+      spotify_access_token
+    );
+    res.json({ data: response.data });
+  } catch (error) {
+    res.json({ error });
+  }
 };
 
 export const getDailySong = (req: Request, res: Response) => {
