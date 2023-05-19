@@ -59,10 +59,13 @@ export const getFeaturedPlaylists = async (req: Request, res: Response) => {
   }
 };
 
-export const getDailySong = (req: Request, res: Response) => {
-  axios.get(process.env.DYNAMODB_URL).then((response) => {
-    res.send(response.data);
-  });
+export const getDailySong = async (req: Request, res: Response) => {
+  try {
+    const response = await musicFacade.getDailySong();
+    res.json({ data: response.data });
+  } catch (error) {
+    res.json({ error });
+  }
 };
 
 export const getRecommendations = (req: Request, res: Response) => {

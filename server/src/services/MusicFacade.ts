@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 type SpotifyTokenReturn = {
   data: {
@@ -57,10 +57,9 @@ class MusicFacade {
     return promise;
   }
 
-  private getDailySong() {
-    axios.get(process.env.DYNAMODB_URL).then((response) => {
-      return response.data;
-    });
+  public async getDailySong(): Promise<any> {
+    const promise = await axios.get(process.env.DYNAMODB_URL);
+    return promise;
   }
 
   private searchItem(
