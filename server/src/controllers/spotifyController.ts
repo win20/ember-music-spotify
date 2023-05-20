@@ -68,21 +68,18 @@ export const getDailySong = async (req: Request, res: Response) => {
   }
 };
 
-export const getRecommendations = (req: Request, res: Response) => {
-  axios
-    .get('https://api.spotify.com/v1/recommendations', {
-      headers: {
-        Authorization: 'Bearer ' + spotify_access_token,
-      },
-      params: {
-        seed_artists: req.query.artistId,
-        seed_genres: req.query.genre,
-        seed_tracks: '32vE1nuG8T9c8bhmZdRY6d',
-      },
-    })
-    .then((response) => {
-      res.send(response.data);
-    });
+export const getRecommendations = async (req: Request, res: Response) => {
+  try {
+    const response = await musicFacade.getRecommendations(
+      spotify_access_token,
+      req.query.artistId as string,
+      req.query.genre as string,
+      'test'
+    );
+    res.json({ data: response.data });
+  } catch (error) {
+    res.json({ error });
+  }
 };
 
 export const searchItem = async (req: Request, res: Response) => {

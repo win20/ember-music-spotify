@@ -67,21 +67,6 @@ class MusicFacade {
     searchType: any,
     search: any
   ): Promise<any> {
-    // let returnValue = undefined;
-    // axios
-    //   .get('https://api.spotify.com/v1/search', {
-    //     headers: {
-    //       Authorization: 'Bearer ' + spotify_access_token,
-    //     },
-    //     params: {
-    //       q: `${searchType}:${search}`,
-    //       type: searchType,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     returnValue = response.data;
-    //   });
-
     const promise = axios.get('https://api.spotify.com/v1/search', {
       headers: {
         Authorization: 'Bearer ' + spotify_access_token,
@@ -95,7 +80,7 @@ class MusicFacade {
     return promise;
   }
 
-  private getRecommendations(
+  public async getRecommendations(
     spotify_access_token: string,
     seed_artist: string,
     seed_genre: string,
@@ -103,8 +88,9 @@ class MusicFacade {
   ) {
     let returnValue = undefined;
 
-    axios
-      .get('https://api.spotify.com/v1/recommendations', {
+    const promise = await axios.get(
+      'https://api.spotify.com/v1/recommendations',
+      {
         headers: {
           Authorization: 'Bearer ' + spotify_access_token,
         },
@@ -113,12 +99,10 @@ class MusicFacade {
           seed_genres: seed_genre,
           seed_tracks: '32vE1nuG8T9c8bhmZdRY6d',
         },
-      })
-      .then((response) => {
-        returnValue = response.data;
-      });
+      }
+    );
 
-    return returnValue;
+    return promise;
   }
 
   private serialize(obj: { grant_type: string }): string {
