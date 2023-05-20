@@ -22,7 +22,7 @@ export const getTrack = async (req: Request, res: Response) => {
       trackToGet,
       spotify_access_token
     );
-    res.json({ data: response.data });
+    res.json({ data: response });
   } catch (error) {
     res.json({ error });
   }
@@ -33,7 +33,7 @@ export const getFeaturedPlaylists = async (req: Request, res: Response) => {
     const response = await musicFacade.getFeaturedPlaylists(
       spotify_access_token
     );
-    res.json({ data: response.data });
+    res.json({ data: response });
   } catch (error) {
     res.json({ error });
   }
@@ -42,7 +42,7 @@ export const getFeaturedPlaylists = async (req: Request, res: Response) => {
 export const getDailySong = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getDailySong();
-    res.json({ data: response.data });
+    res.json({ data: response });
   } catch (error) {
     res.json({ error });
   }
@@ -52,11 +52,11 @@ export const getRecommendations = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getRecommendations(
       spotify_access_token,
-      req.query.artistId as string,
-      req.query.genre as string,
+      '5t5FqBwTcgKTaWmfEbwQY9',
+      'pop',
       'test'
     );
-    res.json({ data: response.data });
+    res.json({ data: response });
   } catch (error) {
     res.json({ error });
   }

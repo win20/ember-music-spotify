@@ -1,18 +1,11 @@
-import axios, { AxiosResponse } from 'axios';
-
-type SpotifyTokenPromise = {
-  data: {
-    status: number;
-    access_token: string;
-    error: string;
-  };
-};
+import axios from 'axios';
+import * as spotifyModels from '../models/SpotifyModels';
 
 class MusicFacade {
   private client_id: string = process.env.SPOTIFY_CLIENT_ID;
   private client_secret: string = process.env.SPOTIFY_SECRET;
 
-  public async getSpotifyToken(): Promise<SpotifyTokenPromise> {
+  public async getSpotifyToken(): Promise<spotifyModels.SpotifyTokenPromise> {
     const promise = await axios.post(
       'https://accounts.spotify.com/api/token',
       this.serialize({
@@ -33,7 +26,7 @@ class MusicFacade {
   public async getTrack(
     trackToGet: string,
     spotify_access_token: string
-  ): Promise<any> {
+  ): Promise<spotifyModels.Track> {
     const promise = await axios.get(
       `https://api.spotify.com/v1/tracks/${trackToGet}`,
       {
@@ -41,12 +34,12 @@ class MusicFacade {
       }
     );
 
-    return promise;
+    return promise.data;
   }
 
   public async getFeaturedPlaylists(
     spotify_access_token: string
-  ): Promise<any> {
+  ): Promise<spotifyModels.Playlist[]> {
     const promise = await axios.get(
       `https://api.spotify.com/v1/browse/featured-playlists`,
       {
@@ -54,12 +47,12 @@ class MusicFacade {
       }
     );
 
-    return promise;
+    return promise.data;
   }
 
-  public async getDailySong(): Promise<any> {
+  public async getDailySong(): Promise<spotifyModels.Track> {
     const promise = await axios.get(process.env.DYNAMODB_URL);
-    return promise;
+    return promise.data;
   }
 
   public async searchItem(
@@ -67,15 +60,18 @@ class MusicFacade {
     searchType: any,
     search: any
   ): Promise<any> {
-    const promise = axios.get('https://api.spotify.com/v1/search', {
-      headers: {
-        Authorization: 'Bearer ' + spotify_access_token,
-      },
-      params: {
-        q: `${searchType}:${search}`,
-        type: searchType,
-      },
-    });
+    const promise = axios.get<spotifyModels.Artist, spotifyModels.Artist>(
+      'https://api.spotify.com/v1/search',
+      {
+        headers: {
+          Authorization: 'Bearer ' + spotify_access_token,
+        },
+        params: {
+          q: `${searchType}:${search}`,
+          type: searchType,
+        },
+      }
+    );
 
     return promise;
   }
@@ -85,9 +81,7 @@ class MusicFacade {
     seed_artist: string,
     seed_genre: string,
     seed_track: string
-  ) {
-    let returnValue = undefined;
-
+  ): Promise<spotifyModels.Track[]> {
     const promise = await axios.get(
       'https://api.spotify.com/v1/recommendations',
       {
@@ -102,7 +96,7 @@ class MusicFacade {
       }
     );
 
-    return promise;
+    return promise.data;
   }
 
   private serialize(obj: { grant_type: string }): string {
