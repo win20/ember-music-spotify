@@ -62,25 +62,37 @@ class MusicFacade {
     return promise;
   }
 
-  private searchItem(
+  public async searchItem(
     spotify_access_token: string,
     searchType: any,
     search: any
-  ) {
-    let returnValue = undefined;
-    axios
-      .get('https://api.spotify.com/v1/search', {
-        headers: {
-          Authorization: 'Bearer ' + spotify_access_token,
-        },
-        params: {
-          q: `${searchType}:${search}`,
-          type: searchType,
-        },
-      })
-      .then((response) => {
-        returnValue = response.data;
-      });
+  ): Promise<any> {
+    // let returnValue = undefined;
+    // axios
+    //   .get('https://api.spotify.com/v1/search', {
+    //     headers: {
+    //       Authorization: 'Bearer ' + spotify_access_token,
+    //     },
+    //     params: {
+    //       q: `${searchType}:${search}`,
+    //       type: searchType,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     returnValue = response.data;
+    //   });
+
+    const promise = axios.get('https://api.spotify.com/v1/search', {
+      headers: {
+        Authorization: 'Bearer ' + spotify_access_token,
+      },
+      params: {
+        q: `${searchType}:${search}`,
+        type: searchType,
+      },
+    });
+
+    return promise;
   }
 
   private getRecommendations(

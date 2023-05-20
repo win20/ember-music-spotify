@@ -85,18 +85,16 @@ export const getRecommendations = (req: Request, res: Response) => {
     });
 };
 
-export const searchItem = (req: Request, res: Response) => {
-  axios
-    .get('https://api.spotify.com/v1/search', {
-      headers: {
-        Authorization: 'Bearer ' + spotify_access_token,
-      },
-      params: {
-        q: `${req.query.searchType}:${req.query.search}`,
-        type: req.query.searchType,
-      },
-    })
-    .then((response) => {
-      res.send(response.data);
-    });
+export const searchItem = async (req: Request, res: Response) => {
+  try {
+    const response = await musicFacade.searchItem(
+      spotify_access_token,
+      req.query.searchType,
+      req.query.search
+    );
+
+    res.json({ data: response.data });
+  } catch (error) {
+    res.json({ error });
+  }
 };
