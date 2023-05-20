@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 
-type SpotifyTokenReturn = {
+type SpotifyTokenPromise = {
   data: {
     status: number;
-    spotify_token: string;
+    access_token: string;
     error: string;
   };
 };
@@ -12,7 +12,7 @@ class MusicFacade {
   private client_id: string = process.env.SPOTIFY_CLIENT_ID;
   private client_secret: string = process.env.SPOTIFY_SECRET;
 
-  public async getSpotifyToken(): Promise<any> {
+  public async getSpotifyToken(): Promise<SpotifyTokenPromise> {
     const promise = await axios.post(
       'https://accounts.spotify.com/api/token',
       this.serialize({

@@ -1,25 +1,5 @@
-import axios from 'axios';
-import express, { Request, Response } from 'express';
-import querystring from 'querystring';
-import { config } from 'dotenv';
+import { Request, Response } from 'express';
 import MusicFacade from '../services/MusicFacade';
-
-config();
-
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_SECRET;
-
-const app = express();
-
-const serialize = function (obj) {
-  let str = [];
-  for (let p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-    }
-  }
-  return str.join('&');
-};
 
 let spotify_access_token = '';
 const musicFacade = new MusicFacade();
