@@ -42,7 +42,7 @@ export const getFeaturedPlaylists = async (req: Request, res: Response) => {
 export const getDailySong = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getDailySong();
-    res.json({ data: response });
+    res.send(response);
   } catch (error) {
     res.json({ error });
   }
@@ -56,7 +56,7 @@ export const getRecommendations = async (req: Request, res: Response) => {
       'pop',
       'test'
     );
-    res.json({ data: response });
+    res.send(response);
   } catch (error) {
     res.json({ error });
   }
@@ -70,7 +70,7 @@ export const searchItem = async (req: Request, res: Response) => {
       req.query.search
     );
 
-    res.json({ data: response.data });
+    res.send(response.data);
   } catch (error) {
     res.json({ error });
   }
