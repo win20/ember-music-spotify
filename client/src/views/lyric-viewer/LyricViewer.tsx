@@ -2,6 +2,8 @@ import Header from '@/components/header/Header';
 import './lyric-viewer.css';
 
 const LyricViewer = () => {
+  const getSongLyrics = () => {};
+
   return (
     <>
       <Header />
@@ -11,7 +13,7 @@ const LyricViewer = () => {
         <label>Search for a song</label>
         <div>
           <input type="text" placeholder="Let it be..." />
-          <button>Search</button>
+          <button onClick={getSongLyrics}>Search</button>
         </div>
       </div>
     </>
