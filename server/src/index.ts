@@ -1,3 +1,4 @@
+import LyricFacade from './services/LyricsFacade';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 require('dotenv').config();
@@ -20,8 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies, values from form come in as JSON
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'hello' });
+app.get('/', async (req: Request, res: Response) => {
+  // res.json({ message: 'hello' });
+
+  const facade = new LyricFacade();
+  const response = await facade.getLyricUrl('Kendrick');
+
+  res.send(response.data);
 });
 
 app.get('/test-route', (req: Request, res: Response, next: NextFunction) => {
