@@ -36,12 +36,7 @@ const Header = () => {
         <Link to="/recommendations" id="recommendations-link">
           Recommendations
         </Link>
-
-        {/* <Link to="/studyMode" id="studymode-link"> */}
-        {/*   Study Mode */}
-        {/* </Link> */}
-
-        <Link to="/studyMode" id="studymode-link">
+        <Link to="/lyric-viewer" id="lyric-viewer-link">
           Lyrics viewer
         </Link>
       </div>

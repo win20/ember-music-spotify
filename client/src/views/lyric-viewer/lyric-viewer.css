@@ -1,0 +1,26 @@
+#LyricViewer label {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#LyricViewer div input {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  padding: 8px 15px;
+  background-color: #e8e8e8;
+  width: 250px;
+}
+
+#LyricViewer div button {
+  padding: 8px 15px;
+  background-color: #ff5757;
+  border-radius: 4px;
+  border: none;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+#LyricViewer div button:hover {
+  cursor: pointer;
+}

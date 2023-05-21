@@ -120,11 +120,6 @@ const PromodoroTimer = (props: Prop) => {
     props.secondsRef.current = props.startTime.seconds;
   };
 
-  const test = async () => {
-    const response = await axios.get('http://localhost:3001/');
-    console.log(response);
-  };
-
   return (
     <div className="PromodoroContainer">
       {props.isDefaultTime ? (
@@ -155,16 +150,8 @@ const PromodoroTimer = (props: Prop) => {
         <button id="timerResetBtn" onClick={resetTimer}>
           Reset
         </button>
-        <button onClick={test}>test</button>
       </div>
       {displaySpotifyEmbeds()}
-      {/* <iframe */}
-      {/*   id="spotifyEmbed" */}
-      {/*   src={`https://open.spotify.com/embed/track/${songId}?utm_source=generator`} */}
-      {/*   width="100%" */}
-      {/*   height="152" */}
-      {/*   loading="eager" */}
-      {/* ></iframe> */}
     </div>
   );
 };
