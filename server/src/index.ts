@@ -22,12 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', async (req: Request, res: Response) => {
-  // res.json({ message: 'hello' });
+  res.json({ message: 'hello' });
 
-  const facade = new LyricFacade();
-  const response = await facade.getLyricUrl('Kendrick');
-
-  res.send(response.data);
+  // const facade = new LyricFacade();
+  // const response = await facade.getLyricUrl('Kendrick');
+  // res.send(response.data);
 });
 
 app.get('/test-route', (req: Request, res: Response, next: NextFunction) => {
@@ -36,6 +35,7 @@ app.get('/test-route', (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use('/spotify', require('./routes/spotifyRoutes'));
+app.use('/lyrics', require('./routes/lyricsRoutes'));
 
 app.listen(3001, () => {
   console.log('listening on port 3001');
