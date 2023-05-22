@@ -1,0 +1,25 @@
+#lyric-search-item-container {
+  border: 1px solid lightgray;
+  margin: 30px 30px 5px 30px;
+  border-radius: 5px;
+  padding: 10px 0px 10px 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.08) 1.95px 1.95px 2.6px;
+}
+
+#cover-image {
+  background-color: lightgray;
+  width: 100px;
+  height: 70px;
+}
+
+#item-text {
+  display: block;
+  width: 100%;
+}
+
+#item-text div:first-child {
+  font-weight: bold;
+  font-size: 18px;
+}

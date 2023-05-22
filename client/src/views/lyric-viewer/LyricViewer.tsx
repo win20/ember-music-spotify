@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Header from '@/components/header/Header';
+import LyricSearchItem from '@/components/lyrics-search-item/LyricsSearchItem';
 import './lyric-viewer.css';
 
 const LyricViewer = () => {
@@ -24,12 +25,14 @@ const LyricViewer = () => {
       <div id="LyricViewer">
         <h1>Lyric viewer</h1>
 
-        <label>Search for a song</label>
         <div>
+          <label>Search for a song</label>
           <input id="lyric-search" type="text" placeholder="Let it be..." />
           <button onClick={getSongLyrics}>Search</button>
         </div>
       </div>
+
+      <LyricSearchItem />
     </>
   );
 };

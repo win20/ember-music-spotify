@@ -1,4 +1,4 @@
-#LyricViewer label {
+#LyricViewer div label {
   font-size: 20px;
   display: block;
   margin-bottom: 5px;
@@ -9,7 +9,7 @@
   border-radius: 4px;
   padding: 8px 15px;
   background-color: #e8e8e8;
-  width: 250px;
+  width: 200px;
 }
 
 #LyricViewer div button {
