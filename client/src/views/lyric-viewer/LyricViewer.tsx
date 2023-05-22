@@ -1,8 +1,22 @@
+import axios from 'axios';
 import Header from '@/components/header/Header';
 import './lyric-viewer.css';
 
 const LyricViewer = () => {
-  const getSongLyrics = () => {};
+  const getSongLyrics = async () => {
+    const inputText = (
+      document.querySelector('#lyric-search') as HTMLInputElement
+    ).value;
+
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL_PREFIX}lyrics/get-search-results`,
+      {
+        params: {
+          searchTerm: inputText,
+        },
+      }
+    );
+  };
 
   return (
     <>
@@ -12,7 +26,7 @@ const LyricViewer = () => {
 
         <label>Search for a song</label>
         <div>
-          <input type="text" placeholder="Let it be..." />
+          <input id="lyric-search" type="text" placeholder="Let it be..." />
           <button onClick={getSongLyrics}>Search</button>
         </div>
       </div>
