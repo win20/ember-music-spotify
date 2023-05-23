@@ -30,3 +30,9 @@
   white-space: nowrap;
   margin: auto;
 }
+
+@media only screen and (min-width: 768px) {
+  #item-text div:first-child {
+    max-width: 400px;
+  }
+}

@@ -4,6 +4,7 @@ import LyricSearchItem from '@/components/lyrics-search-item/LyricsSearchItem';
 import './lyric-viewer.css';
 import { useState } from 'react';
 import loadingSpinner from '@assets/imgs/pulse-loading.gif';
+import { Helmet } from 'react-helmet';
 
 const LyricViewer = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -31,6 +32,9 @@ const LyricViewer = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Ember Music - Lyric Viewer</title>
+      </Helmet>
       <Header />
       <div id="LyricViewer">
         <h1>Lyric viewer</h1>
@@ -42,22 +46,28 @@ const LyricViewer = () => {
         </div>
       </div>
 
-      {isLoading ? (
-        <img id="loading-spinner" src={loadingSpinner} alt="loading spinner" />
-      ) : (
-        searchResults.map((item: any) => {
-          return (
-            <div className="search-result-item" key={item.result.id}>
-              <LyricSearchItem
-                image={item.result.header_image_thumbnail_url}
-                title={item.result.title}
-                artist={item.result.artist_names}
-                lyrics_url={item.result.url}
-              />
-            </div>
-          );
-        })
-      )}
+      <div id="search-results-container">
+        {isLoading ? (
+          <img
+            id="loading-spinner"
+            src={loadingSpinner}
+            alt="loading spinner"
+          />
+        ) : (
+          searchResults.map((item: any) => {
+            return (
+              <div className="search-result-item" key={item.result.id}>
+                <LyricSearchItem
+                  image={item.result.header_image_thumbnail_url}
+                  title={item.result.title}
+                  artist={item.result.artist_names}
+                  lyrics_url={item.result.url}
+                />
+              </div>
+            );
+          })
+        )}
+      </div>
     </>
   );
 };
