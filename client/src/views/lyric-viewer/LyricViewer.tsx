@@ -2,8 +2,11 @@ import axios from 'axios';
 import Header from '@/components/header/Header';
 import LyricSearchItem from '@/components/lyrics-search-item/LyricsSearchItem';
 import './lyric-viewer.css';
+import { useState } from 'react';
 
 const LyricViewer = () => {
+  const [searchResults, setSearchResults] = useState([]);
+
   const getSongLyrics = async () => {
     const inputText = (
       document.querySelector('#lyric-search') as HTMLInputElement
@@ -17,6 +20,21 @@ const LyricViewer = () => {
         },
       }
     );
+
+    setSearchResults(response.data.response.hits);
+    console.log(response.data.response.hits[0]);
+  };
+
+  const renderSearchResults = () => {
+    return searchResults.map((item: any) => {
+      return (
+        <LyricSearchItem
+          image={item.result.header_image_thumbnail_url}
+          title={item.result.title}
+          artist={item.result.artist_names}
+        />
+      );
+    });
   };
 
   return (
@@ -32,7 +50,17 @@ const LyricViewer = () => {
         </div>
       </div>
 
-      <LyricSearchItem />
+      {searchResults.map((item: any) => {
+        return (
+          <div className="search-result-item" key={item.result.id}>
+            <LyricSearchItem
+              image={item.result.header_image_thumbnail_url}
+              title={item.result.title}
+              artist={item.result.artist_names}
+            />
+          </div>
+        );
+      })}
     </>
   );
 };

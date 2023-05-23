@@ -24,3 +24,7 @@
 #LyricViewer div button:hover {
   cursor: pointer;
 }
+
+.search-result-item {
+  margin: 15px 0;
+}
