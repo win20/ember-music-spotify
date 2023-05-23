@@ -4,17 +4,18 @@ type Props = {
   image: string;
   title: string;
   artist: string;
+  lyrics_url: string;
 };
 
 const LyricSearchItem = (props: Props) => {
   return (
-    <div id="lyric-search-item-container">
+    <a id="lyric-search-item-container" href={props.lyrics_url} target="_blank">
       <img id="cover-image" src={props.image} alt="" />
       <div id="item-text">
         <div id="title">{props.title}</div>
         <div id="artist">{props.artist}</div>
       </div>
-    </div>
+    </a>
   );
 };
 

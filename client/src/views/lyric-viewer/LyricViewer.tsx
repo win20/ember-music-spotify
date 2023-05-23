@@ -32,6 +32,7 @@ const LyricViewer = () => {
           image={item.result.header_image_thumbnail_url}
           title={item.result.title}
           artist={item.result.artist_names}
+          lyrics_url={item.result.url}
         />
       );
     });
@@ -57,6 +58,7 @@ const LyricViewer = () => {
               image={item.result.header_image_thumbnail_url}
               title={item.result.title}
               artist={item.result.artist_names}
+              lyrics_url={item.result.url}
             />
           </div>
         );
