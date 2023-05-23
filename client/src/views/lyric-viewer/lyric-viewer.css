@@ -28,3 +28,9 @@
 .search-result-item {
   margin: 10px 0;
 }
+
+#loading-spinner {
+  width: 100px;
+  height: 100px;
+  margin-top: 100px;
+}
