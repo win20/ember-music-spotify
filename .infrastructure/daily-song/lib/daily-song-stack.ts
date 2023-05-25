@@ -7,7 +7,6 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as targets from 'aws-cdk-lib/aws-events-targets';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import * as iam from 'aws-cdk-lib/aws-iam';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 require('dotenv').config();
 
@@ -59,6 +58,23 @@ export class DailySongStack extends Stack {
     getDailySongRoute.addMethod(
       'GET',
       new apigw.LambdaIntegration(getDailySongLambda)
+    );
+
+    const lyricsCrawlerLambda = new lambda.Function(
+      this,
+      'lyrics-crawler-lambda',
+      {
+        functionName: 'lyrics-crawler-lambda',
+        runtime: lambda.Runtime.PYTHON_3_9,
+        code: lambda.Code.fromAsset('lambdas'),
+        handler: 'lyrics-crawler.handler',
+      }
+    );
+
+    const getLyricsRoute = api.root.addResource('get-lyrics');
+    getLyricsRoute.addMethod(
+      'GET',
+      new apigw.LambdaIntegration(lyricsCrawlerLambda)
     );
   }
 }
