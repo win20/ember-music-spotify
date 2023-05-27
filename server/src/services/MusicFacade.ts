@@ -51,7 +51,11 @@ class MusicFacade {
   }
 
   public async getDailySong(): Promise<spotifyModels.Track> {
-    const promise = await axios.get(process.env.DYNAMODB_URL);
+    const promise = await axios.get(process.env.DYNAMODB_URL, {
+      headers: {
+        'x-api-key': process.env.AWS_API_KEY,
+      },
+    });
     return promise.data;
   }
 

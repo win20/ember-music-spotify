@@ -19,6 +19,9 @@ export default class LyricFacade {
       params: {
         url: url,
       },
+      headers: {
+        'x-api-key': process.env.AWS_API_KEY,
+      },
     });
 
     return promise;
