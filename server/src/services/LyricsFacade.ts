@@ -13,4 +13,14 @@ export default class LyricFacade {
 
     return promise;
   }
+
+  public async getLyricsFromUrl(url: string): Promise<any> {
+    const promise = await axios.get(`${process.env.GET_LYRICS_URL}`, {
+      params: {
+        url: url,
+      },
+    });
+
+    return promise;
+  }
 }

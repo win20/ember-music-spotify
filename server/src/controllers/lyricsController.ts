@@ -12,3 +12,13 @@ export const getSearchResults = async (req: Request, res: Response) => {
     res.send(error);
   }
 };
+
+export const getLyricsFromUrl = async (req: Request, res: Response) => {
+  const url = req.query.url;
+  try {
+    const response = await lyricFacade.getLyricsFromUrl(url as string);
+    res.send(response.data);
+  } catch (error) {
+    res.send(error);
+  }
+};
