@@ -5,10 +5,12 @@ import './lyric-viewer.css';
 import { useState } from 'react';
 import loadingSpinner from '@assets/imgs/pulse-loading.gif';
 import { Helmet } from 'react-helmet';
+import LyricsDisplay from '@/components/lyrics-display/LyricsDisplay';
 
 const LyricViewer = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [lyricsArray, setLyricsArray] = useState<string[]>([]);
 
   const getSearchResults = async () => {
     setIsLoading(true);
@@ -27,8 +29,29 @@ const LyricViewer = () => {
 
     setSearchResults(response.data.response.hits);
     setIsLoading(false);
-    console.log(response.data.response.hits[0]);
   };
+
+  const getLyrics = async (url: string) => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL_PREFIX}lyrics/get-lyrics`,
+      {
+        params: {
+          url: url,
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    setLyricsArray(response.data.lyrics);
+  };
+
+  const lyricsTest = [
+    'this is a lyric test',
+    'this is the second line',
+    'this is the third line',
+    'fourth line',
+  ];
 
   return (
     <>
@@ -56,7 +79,11 @@ const LyricViewer = () => {
         ) : (
           searchResults.map((item: any) => {
             return (
-              <div className="search-result-item" key={item.result.id}>
+              <div
+                className="search-result-item"
+                key={item.result.id}
+                onClick={() => getLyrics(item.result.url)}
+              >
                 <LyricSearchItem
                   image={item.result.header_image_thumbnail_url}
                   title={item.result.title}
@@ -68,6 +95,9 @@ const LyricViewer = () => {
           })
         )}
       </div>
+
+      {lyricsArray && <LyricsDisplay lyricsArray={lyricsArray} />}
+      {/* <LyricsDisplay lyricsArray={lyricsTest} /> */}
     </>
   );
 };
