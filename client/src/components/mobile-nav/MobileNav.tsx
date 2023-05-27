@@ -29,7 +29,7 @@ const MobileNav = () => {
         <div id="mobile-nav-items">
           <Link to="/">Home</Link>
           <Link to="/recommendations">Recommendations</Link>
-          <Link to="/studyMode">Study mode</Link>
+          <Link to="/lyric-viewer">Lyrics Viewer</Link>
         </div>
       </div>
     </>

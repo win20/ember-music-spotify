@@ -127,11 +127,11 @@
   transform: scaleX(1);
 }
 
-#studymode-link::before {
+#lyric-viewer-link::before {
   content: '';
   position: absolute;
   display: block;
-  width: 33%;
+  width: 35%;
   height: 2px;
   bottom: 0;
   left: 182px;
@@ -141,7 +141,7 @@
   transition: transform 0.3s ease;
 }
 
-#studymode-link:hover::before {
+#lyric-viewer-link:hover::before {
   transform: scaleX(1);
 }
 

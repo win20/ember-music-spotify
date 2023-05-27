@@ -146,7 +146,7 @@ const RecommendationForm = (props: RecommendationFormProp) => {
         params: { search: artist, searchType: 'artist' },
       })
       .then((response) => {
-        artistId = response.data.data.artists.items[0].id;
+        artistId = response.data.artists.items[0].id;
       });
 
     let songId;
@@ -155,7 +155,7 @@ const RecommendationForm = (props: RecommendationFormProp) => {
         params: { search: song, searchType: 'track' },
       })
       .then((response) => {
-        songId = response.data.data.tracks.items[0].id;
+        songId = response.data.tracks.items[0].id;
       });
 
     await axios

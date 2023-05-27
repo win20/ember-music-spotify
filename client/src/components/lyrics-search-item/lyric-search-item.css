@@ -35,4 +35,8 @@
   #item-text div:first-child {
     max-width: 400px;
   }
+
+  #lyric-search-item-container:hover {
+    cursor: pointer;
+  }
 }

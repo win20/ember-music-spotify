@@ -55,7 +55,6 @@ const Recommendations = () => {
           <div></div>
         )}
       </div>
-      <div id="page-bottom"></div>
     </div>
   );
 };

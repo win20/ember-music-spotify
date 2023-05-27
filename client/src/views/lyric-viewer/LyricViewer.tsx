@@ -2,7 +2,7 @@ import axios from 'axios';
 import Header from '@/components/header/Header';
 import LyricSearchItem from '@/components/lyrics-search-item/LyricsSearchItem';
 import './lyric-viewer.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import loadingSpinner from '@assets/imgs/pulse-loading.gif';
 import { Helmet } from 'react-helmet';
 import LyricsDisplay from '@/components/lyrics-display/LyricsDisplay';
@@ -10,6 +10,7 @@ import LyricsDisplay from '@/components/lyrics-display/LyricsDisplay';
 const LyricViewer = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLyricsLoading, setIsLyricsLoading] = useState<boolean>(false);
   const [lyricsArray, setLyricsArray] = useState<string[] | undefined>(
     undefined
   );
@@ -33,7 +34,14 @@ const LyricViewer = () => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    document.querySelector('#lyrics-display-container')?.scrollIntoView();
+    setIsLyricsLoading(false);
+  }, [lyricsArray]);
+
   const getLyrics = async (url: string) => {
+    setIsLyricsLoading(true);
+
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL_PREFIX}lyrics/get-lyrics`,
       {
@@ -73,10 +81,19 @@ const LyricViewer = () => {
       <div id="LyricViewer">
         <h1>Lyric viewer</h1>
 
-        <div>
+        <div id="lyrics-search-container">
           <label>Search for a song</label>
-          <input id="lyric-search" type="text" placeholder="Let it be..." />
-          <button onClick={getSearchResults}>Search</button>
+          <div>
+            <input id="lyric-search" type="text" placeholder="Let it be..." />
+            <button onClick={getSearchResults}>Search</button>
+            {isLyricsLoading && (
+              <img
+                id="lyrics-loading-spinner"
+                src={loadingSpinner}
+                alt="loading spinner"
+              />
+            )}
+          </div>
         </div>
       </div>
 

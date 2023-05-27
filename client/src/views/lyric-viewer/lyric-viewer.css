@@ -54,4 +54,15 @@
   .search-result-item:hover {
     transform: translateX(10px);
   }
+
+  #lyrics-search-container div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #lyrics-loading-spinner {
+    width: 50px;
+    margin-left: 10px;
+  }
 }
