@@ -2,7 +2,14 @@
   background-color: #f5f5f5;
   border: 1px solid #c2c2c2;
   border-radius: 4px;
-  width: 50%;
-  margin: 0 auto 40px auto;
+  margin: 0 30px 40px 30px;
   padding: 0 30px 20px 30px;
+  white-space: pre-line;
+}
+
+@media only screen and (min-width: 768px) {
+  #lyrics-display-container {
+    width: 678px;
+    margin: 0 auto 40px auto;
+  }
 }

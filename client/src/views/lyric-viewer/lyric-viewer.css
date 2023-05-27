@@ -45,7 +45,7 @@
   }
 
   .search-result-item {
-    width: 40%;
+    width: 800px;
     margin: 10px auto;
     animation: transform ease-in-out;
     transition: 0.3s;

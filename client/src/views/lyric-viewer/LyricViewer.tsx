@@ -10,7 +10,9 @@ import LyricsDisplay from '@/components/lyrics-display/LyricsDisplay';
 const LyricViewer = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [lyricsArray, setLyricsArray] = useState<string[]>([]);
+  const [lyricsArray, setLyricsArray] = useState<string[] | undefined>(
+    undefined
+  );
 
   const getSearchResults = async () => {
     setIsLoading(true);
@@ -41,17 +43,26 @@ const LyricViewer = () => {
       }
     );
 
-    console.log(response.data);
-
-    setLyricsArray(response.data.lyrics);
+    setLyricsArray(cleanLyrics(response.data.lyrics));
   };
 
-  const lyricsTest = [
-    'this is a lyric test',
-    'this is the second line',
-    'this is the third line',
-    'fourth line',
-  ];
+  const cleanLyrics = (lyricsArray: string[]): string[] => {
+    lyricsArray.forEach((item: string, index: number) => {
+      const regex = /[a-z][A-Z]/g;
+      const matchIndex = regex.exec(item)?.index! + 1;
+      const stringToInsert = '\n';
+
+      if (matchIndex) {
+        lyricsArray[index] = [
+          item.slice(0, matchIndex),
+          stringToInsert,
+          item.slice(matchIndex),
+        ].join('');
+      }
+    });
+
+    return lyricsArray;
+  };
 
   return (
     <>
@@ -97,7 +108,6 @@ const LyricViewer = () => {
       </div>
 
       {lyricsArray && <LyricsDisplay lyricsArray={lyricsArray} />}
-      {/* <LyricsDisplay lyricsArray={lyricsTest} /> */}
     </>
   );
 };
