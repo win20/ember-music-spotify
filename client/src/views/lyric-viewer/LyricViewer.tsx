@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import loadingSpinner from '@assets/imgs/pulse-loading.gif';
 import { Helmet } from 'react-helmet';
 import LyricsDisplay from '@/components/lyrics-display/LyricsDisplay';
+import { MouseEvent } from 'react';
 
 const LyricViewer = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -39,19 +40,48 @@ const LyricViewer = () => {
     setIsLyricsLoading(false);
   }, [lyricsArray]);
 
-  const getLyrics = async (url: string) => {
-    setIsLyricsLoading(true);
+  const getLyrics = async (index: any, url: string) => {
+    const searchItemElement = document.querySelectorAll('.search-result-item')[
+      index
+    ];
+    if (!isLyricsLoading) {
+      (
+        searchItemElement.querySelector(
+          '#lyrics-loader-overlay'
+        ) as HTMLSpanElement
+      ).style.display = 'block';
 
-    const response = await axios.get(
-      `${import.meta.env.VITE_API_URL_PREFIX}lyrics/get-lyrics`,
-      {
-        params: {
-          url: url,
-        },
-      }
-    );
+      (
+        searchItemElement.querySelector(
+          '#lyrics-loading-spinner'
+        ) as HTMLSpanElement
+      ).style.display = 'block';
+      setIsLyricsLoading(true);
 
-    setLyricsArray(cleanLyrics(response.data.lyrics));
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL_PREFIX}lyrics/get-lyrics`,
+        {
+          params: {
+            url: url,
+          },
+        }
+      );
+
+      setLyricsArray(cleanLyrics(response.data.lyrics));
+
+      (
+        searchItemElement.querySelector(
+          '#lyrics-loader-overlay'
+        ) as HTMLSpanElement
+      ).style.display = 'none';
+
+      (
+        searchItemElement.querySelector(
+          '#lyrics-loading-spinner'
+        ) as HTMLSpanElement
+      ).style.display = 'none';
+      setIsLyricsLoading(false);
+    }
   };
 
   const cleanLyrics = (lyricsArray: string[]): string[] => {
@@ -105,12 +135,12 @@ const LyricViewer = () => {
             alt="loading spinner"
           />
         ) : (
-          searchResults.map((item: any) => {
+          searchResults.map((item: any, index: any) => {
             return (
               <div
                 className="search-result-item"
                 key={item.result.id}
-                onClick={() => getLyrics(item.result.url)}
+                onClick={() => getLyrics(index, item.result.url)}
               >
                 <LyricSearchItem
                   image={item.result.header_image_thumbnail_url}

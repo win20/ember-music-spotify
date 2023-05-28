@@ -1,5 +1,6 @@
 import './lyric-search-item.css';
 import axios from 'axios';
+import loadingSpinner from '@assets/imgs/pulse-loading-white.gif';
 
 type Props = {
   image: string;
@@ -24,7 +25,15 @@ const LyricSearchItem = (props: Props) => {
 
   return (
     <div id="lyric-search-item-container">
-      <img id="cover-image" src={props.image} alt="" />
+      <span id="cover-img-container">
+        <img id="cover-image" src={props.image} alt="" />
+        <span id="lyrics-loader-overlay"></span>
+        <img
+          src={loadingSpinner}
+          alt="loading spinner"
+          id="lyrics-loading-spinner"
+        />
+      </span>
       <div id="item-text">
         <div id="title">{props.title}</div>
         <div id="artist">{props.artist}</div>
