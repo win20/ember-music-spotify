@@ -1,5 +1,5 @@
-import LyricFacade from './services/LyricsFacade';
 import express, { Request, Response, NextFunction } from 'express';
+import winston from 'winston';
 import cors from 'cors';
 require('dotenv').config();
 
@@ -22,11 +22,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', async (req: Request, res: Response) => {
+  winston.log('info', 'Hello this is a log', {
+    test: 'key'
+  })
   res.json({ message: 'hello' });
-
-  // const facade = new LyricFacade();
-  // const response = await facade.getLyricUrl('Kendrick');
-  // res.send(response.data);
 });
 
 app.get('/test-route', (req: Request, res: Response, next: NextFunction) => {
