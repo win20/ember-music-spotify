@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import loadingSpinner from '@assets/imgs/pulse-loading.gif';
 import { Helmet } from 'react-helmet';
 import LyricsDisplay from '@/components/lyrics-display/LyricsDisplay';
-import { MouseEvent } from 'react';
 
 const LyricViewer = () => {
   const [searchResults, setSearchResults] = useState([]);
