@@ -18,8 +18,8 @@ const RecommendationsDisplay = (props: SongsProp) => {
                 href={song.external_urls.spotify}
               >
                 <img src={song.album.images[0].url} alt="song cover art" />
+                <span>{song.name}</span>
               </a>
-              <span>{song.name}</span>
             </div>
           );
         })}
