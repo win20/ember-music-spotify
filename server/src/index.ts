@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import winston from 'winston';
 import cors from 'cors';
+import { logger } from './services/logger';
 require('dotenv').config();
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', async (req: Request, res: Response) => {
-  winston.log('info', 'Hello this is a log', {
+  logger.log('info', 'This is the second log', {
     test: 'key'
   })
   res.json({ message: 'hello' });
