@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { logger } from './services/logger';
 require('dotenv').config();
 
+const port = 3001;
 const app = express();
 app.use(express());
 
@@ -21,21 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies, values from form come in as JSON
 app.use(express.json());
 
-app.get('/', async (req: Request, res: Response) => {
-  logger.log('info', 'This is the second log', {
-    test: 'key'
-  })
-  res.json({ message: 'hello' });
-});
-
-app.get('/test-route', (req: Request, res: Response, next: NextFunction) => {
-  console.log('cors route');
-  res.json({ msg: 'CORS enabled' });
-});
-
 app.use('/spotify', require('./routes/spotifyRoutes'));
 app.use('/lyrics', require('./routes/lyricsRoutes'));
 
-app.listen(3001, () => {
-  console.log('listening on port 3001');
+app.listen(port, () => {
+  if (process.env.ENVIRONMENT = 'dev') {
+    console.log(`listening on port ${port}`);
+  }
 });
