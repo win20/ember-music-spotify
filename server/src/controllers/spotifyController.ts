@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import MusicFacade from '../services/MusicFacade';
+import { logger } from '../services/logger';
 
 let spotify_access_token = '';
 const musicFacade = new MusicFacade();
@@ -44,6 +45,7 @@ export const getDailySong = async (req: Request, res: Response) => {
     const response = await musicFacade.getDailySong();
     res.send(response);
   } catch (error) {
+    logger.error('Could not retrieve daily song');
     res.json({ error });
   }
 };

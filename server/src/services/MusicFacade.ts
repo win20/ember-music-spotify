@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as spotifyModels from '../models/SpotifyModels';
+import { logger } from './logger';
 
 class MusicFacade {
   private client_id: string = process.env.SPOTIFY_CLIENT_ID;
