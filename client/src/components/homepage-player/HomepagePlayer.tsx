@@ -15,6 +15,8 @@ const HomepagePlayer = () => {
   const progressContainer = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [isDailySongFetchError, setIsDailySongFetchError] = useState<boolean>(false);
+
   useEffect(() => {
     fetchDailySong();
   }, []);
@@ -36,6 +38,8 @@ const HomepagePlayer = () => {
       })
       .catch((err) => {
         console.log(err);
+        setIsDailySongFetchError(true);
+        setIsLoading(false);
       });
   };
 
@@ -82,48 +86,58 @@ const HomepagePlayer = () => {
       ) : (
         <div>
           <h1>Featured Song</h1>
-          <div id="songDetails">
-            <h3>{songTitle}</h3>
-            <p>{songArtist}</p>
-          </div>
-          <img id="songCover" src={songCover} alt="" />
-          <audio
-            src={audioSrc}
-            id="audio"
-            onTimeUpdate={updateProgress}
-          ></audio>
 
-          <div className="media-controls">
-            {playState ? (
-              <button className="media-btn" onClick={pauseSong}>
-                <img src={pauseIcon} alt="pause" />
-              </button>
+            {isDailySongFetchError ? (
+              <div>
+                <h1>fail</h1>
+              </div>
             ) : (
-              <button className="media-btn" onClick={playSong}>
-                <img src={playIcon} alt="play" />
-              </button>
+
+            <div>
+              <div id="songDetails">
+                <h3>{songTitle}</h3>
+                <p>{songArtist}</p>
+              </div>
+              <img id="songCover" src={songCover} alt="" />
+              <audio
+                src={audioSrc}
+                id="audio"
+                onTimeUpdate={updateProgress}
+              ></audio>
+
+              <div className="media-controls">
+                {playState ? (
+                  <button className="media-btn" onClick={pauseSong}>
+                    <img src={pauseIcon} alt="pause" />
+                  </button>
+                ) : (
+                  <button className="media-btn" onClick={playSong}>
+                    <img src={playIcon} alt="play" />
+                  </button>
+                )}
+
+                <div className="progressAndLink"></div>
+                <div
+                  ref={progressContainer}
+                  className="progress-container"
+                  onClick={() => setProgress}
+                >
+                  <div className="progress"></div>
+                </div>
+
+                <div className="linksContainer">
+                  <a
+                    href={songUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="deezer-btn"
+                  >
+                    Full song on Spotify
+                  </a>
+                </div>
+              </div>
+            </div>
             )}
-
-            <div className="progressAndLink"></div>
-            <div
-              ref={progressContainer}
-              className="progress-container"
-              onClick={() => setProgress}
-            >
-              <div className="progress"></div>
-            </div>
-
-            <div className="linksContainer">
-              <a
-                href={songUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="deezer-btn"
-              >
-                Full song on Spotify
-              </a>
-            </div>
-          </div>
         </div>
       )}
       <ErrorModal />
