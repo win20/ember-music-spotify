@@ -1,9 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response, response } from 'express';
 import MusicFacade from '../services/MusicFacade';
 import { logger } from '../services/logger';
+import { extractAxiosErrorData } from '../helpers';
 
 let spotify_access_token = '';
 const musicFacade = new MusicFacade();
+const locationPrefix = 'controllers.spotifyController';
 
 export const getSpotifyToken = async (req: Request, res: Response) => {
   try {
@@ -44,9 +46,11 @@ export const getDailySong = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getDailySong();
     res.send(response);
-  } catch (error) {
-    logger.error('Could not retrieve daily song');
-    res.json({ error });
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getDailySong');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
 
@@ -59,8 +63,11 @@ export const getRecommendations = async (req: Request, res: Response) => {
       'test'
     );
     res.send(response);
-  } catch (error) {
-    res.json({ error });
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getRecommendations');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
 
@@ -73,7 +80,10 @@ export const searchItem = async (req: Request, res: Response) => {
     );
 
     res.send(response.data);
-  } catch (error) {
-    res.json({ error });
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.searchItem');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
