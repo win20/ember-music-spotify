@@ -13,8 +13,11 @@ export const getSpotifyToken = async (req: Request, res: Response) => {
     spotify_access_token = response.data.access_token;
 
     res.json({ data: response.data });
-  } catch (error) {
-    res.json({ error });
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getSpotifyToken');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
 
@@ -26,8 +29,11 @@ export const getTrack = async (req: Request, res: Response) => {
       spotify_access_token
     );
     res.json({ data: response });
-  } catch (error) {
-    res.json({ error });
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getTrack');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
 
@@ -37,8 +43,11 @@ export const getFeaturedPlaylists = async (req: Request, res: Response) => {
       spotify_access_token
     );
     res.json({ data: response });
-  } catch (error) {
-    res.json({ error });
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getFeaturedPlaylists');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
 
