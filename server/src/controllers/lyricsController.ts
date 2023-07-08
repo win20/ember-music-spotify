@@ -1,15 +1,21 @@
 import { Request, Response } from 'express';
 import LyricFacade from '../services/LyricsFacade';
+import { logger } from '../services/logger';
+import { extractAxiosErrorData } from '../helpers';
 
 const lyricFacade = new LyricFacade();
+const locationPrefix = 'controllers.lyricsController';
 
 export const getSearchResults = async (req: Request, res: Response) => {
   const searchTerm = req.query.searchTerm;
   try {
     const response = await lyricFacade.getSearchResults(searchTerm as string);
     res.send(response.data);
-  } catch (error) {
-    res.send(error);
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getSearchResults');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
 
@@ -18,7 +24,10 @@ export const getLyricsFromUrl = async (req: Request, res: Response) => {
   try {
     const response = await lyricFacade.getLyricsFromUrl(url as string);
     res.send(response.data);
-  } catch (error) {
-    res.send(error);
+  } catch (e) {
+    const errorData = extractAxiosErrorData(e, locationPrefix + '.getLyricsFromUrl');
+
+    logger.error(JSON.stringify(errorData));
+    res.send(e);
   }
 };
