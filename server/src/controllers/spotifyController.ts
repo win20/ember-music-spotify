@@ -54,6 +54,9 @@ export const getFeaturedPlaylists = async (req: Request, res: Response) => {
 export const getDailySong = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getDailySong();
+
+    logger.info(locationPrefix + '.getDailySong: daily song successfully retrieved');
+
     res.send(response);
   } catch (e) {
     const errorData = extractAxiosErrorData(e, locationPrefix + '.getDailySong');

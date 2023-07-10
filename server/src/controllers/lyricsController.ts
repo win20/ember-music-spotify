@@ -10,6 +10,8 @@ export const getSearchResults = async (req: Request, res: Response) => {
   const searchTerm = req.query.searchTerm;
   try {
     const response = await lyricFacade.getSearchResults(searchTerm as string);
+
+    logger.info(locationPrefix + 'getSearchResults: Search ')
     res.send(response.data);
   } catch (e) {
     const errorData = extractAxiosErrorData(e, locationPrefix + '.getSearchResults');
