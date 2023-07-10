@@ -1,4 +1,4 @@
-import { Request, Response, response } from 'express';
+import { Request, Response } from 'express';
 import MusicFacade from '../services/MusicFacade';
 import { logger } from '../services/logger';
 import { extractAxiosErrorData } from '../helpers';
@@ -56,7 +56,6 @@ export const getDailySong = async (req: Request, res: Response) => {
     const response = await musicFacade.getDailySong();
 
     logger.info(locationPrefix + '.getDailySong: daily song successfully retrieved');
-
     res.send(response);
   } catch (e) {
     const errorData = extractAxiosErrorData(e, locationPrefix + '.getDailySong');
@@ -70,9 +69,9 @@ export const getRecommendations = async (req: Request, res: Response) => {
   try {
     const response = await musicFacade.getRecommendations(
       spotify_access_token,
-      '5t5FqBwTcgKTaWmfEbwQY9',
-      'pop',
-      'test'
+      req.query.artistId.toString(),
+      req.query.genre.toString(),
+      req.query.songId.toString(),
     );
     res.send(response);
   } catch (e) {

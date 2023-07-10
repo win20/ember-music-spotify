@@ -167,7 +167,9 @@ const RecommendationForm = (props: RecommendationFormProp) => {
         },
       })
       .then((response) => {
+        console.log(response.data);
         props.func(response.data.tracks);
+        
       });
   };
 
