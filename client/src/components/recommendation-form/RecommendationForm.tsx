@@ -56,12 +56,6 @@ const musicGenresList = [
     selected: false,
     key: 'musicGenre',
   },
-  {
-    id: 8,
-    title: 'Sad',
-    selected: false,
-    key: 'musicGenre',
-  },
 ];
 
 type DropdownItemsProps = {
@@ -167,9 +161,7 @@ const RecommendationForm = (props: RecommendationFormProp) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         props.func(response.data.tracks);
-        
       });
   };
 
