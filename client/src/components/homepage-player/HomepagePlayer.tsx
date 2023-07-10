@@ -5,6 +5,7 @@ import playIcon from '@assets/icons/play-icon.png';
 import pauseIcon from '@assets/icons/pause-icon.png';
 import LoadingScreen from '@components/loading-screen/LoadingScreen';
 import ErrorModal from '@components/error-modal/ErrorModal';
+import ErrorDisplay from '@components/error-display/ErrorDisplay';
 
 const HomepagePlayer = () => {
   const [songTitle, setSongTitle] = useState('');
@@ -88,9 +89,7 @@ const HomepagePlayer = () => {
           <h1>Featured Song</h1>
 
             {isDailySongFetchError ? (
-              <div>
-                <h1>fail</h1>
-              </div>
+              <ErrorDisplay message='Sorry, an error occured when fetching the daily featured song'/>
             ) : (
 
             <div>

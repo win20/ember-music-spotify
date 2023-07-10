@@ -4,6 +4,7 @@ import downArrow from '@assets/icons/down-arrow.png';
 import axios from 'axios';
 import Song from '@/models/Song';
 import { Dispatch } from 'react';
+import ErrorDisplay from '@components/error-display/ErrorDisplay';
 
 const apiUrl = import.meta.env.VITE_API_URL_PREFIX;
 
@@ -97,6 +98,7 @@ type RecommendationFormProp = {
 
 const RecommendationForm = (props: RecommendationFormProp) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const [selectedMusicGenre, setSelectedMusicGenre] = useState<string>(
     musicGenresList[0].title
   );
@@ -135,13 +137,17 @@ const RecommendationForm = (props: RecommendationFormProp) => {
     }
 
     let artistId;
-    await axios
-      .get(`${apiUrl}spotify/searchItem`, {
-        params: { search: artist, searchType: 'artist' },
-      })
-      .then((response) => {
-        artistId = response.data.artists.items[0].id;
-      });
+    try {
+      await axios
+        .get(`${apiUrl}spotify/searchItem`, {
+          params: { search: artist, searchType: 'artist' },
+        })
+        .then((response) => {
+          artistId = response.data.artists.items[0].id;
+        });
+    } catch {
+      setIsError(true);
+    }
 
     let songId;
     await axios
@@ -199,6 +205,10 @@ const RecommendationForm = (props: RecommendationFormProp) => {
       </form>
       {formValidationMessage && (
         <p id="errorMessage">{formValidationMessage}</p>
+      )}
+
+      {isError && (
+        <ErrorDisplay message='Sorry, an error occurred when fetching recommendations'/>
       )}
     </div>
   );
