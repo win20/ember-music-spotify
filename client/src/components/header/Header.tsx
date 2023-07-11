@@ -18,20 +18,6 @@ const Header = () => {
       <Link to="/" className="logoHomeLink">
         <img className="logo" src={logoLight} alt="" />
       </Link>
-      <div className="search-container">
-        <form action="">
-          <input
-            className="searchBar"
-            type="text"
-            placeholder="Search song, artist, album..."
-          />
-          <button type="submit" className="searchButton">
-            <Link to="/">
-              <img id="searchIcon" src={searchIcon} alt="" />
-            </Link>
-          </button>
-        </form>
-      </div>
       <div className="header-links">
         <Link to="/recommendations" id="recommendations-link">
           Recommendations
