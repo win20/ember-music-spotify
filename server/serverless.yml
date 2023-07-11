@@ -1,0 +1,14 @@
+service: ember-music-server
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-west-2
+  stage: production
+
+functions:
+  api:
+    handler: dist/index.handler
+    events:
+      - httpApi: "*"

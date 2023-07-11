@@ -19,11 +19,11 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': './src/',
-      '@assets': './src/assets',
-      '@components': './src/components',
-      '@views': './src/views',
-      '@models': './src/models',
+      '@': '/src/',
+      '@assets': '/src/assets',
+      '@components': '/src/components',
+      '@views': '/src/views',
+      '@models': '/src/models',
     },
   },
 });

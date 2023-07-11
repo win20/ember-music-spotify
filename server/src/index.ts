@@ -1,3 +1,4 @@
+import serverless from 'serverless-http';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 require('dotenv').config();
@@ -21,11 +22,15 @@ app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies, values from form come in as JSON
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.status(200).send('Hello from root');
+});
 app.use('/spotify', require('./routes/spotifyRoutes'));
 app.use('/lyrics', require('./routes/lyricsRoutes'));
 
-app.listen(port, () => {
-  if (process.env.ENVIRONMENT = 'dev') {
-    console.log(`listening on port ${port}`);
-  }
-});
+if (process.env.ENVIRONMENT = 'dev') {
+  app.listen(port, () => {
+      console.log(`listening on port ${port}`);
+  });
+}     
+// export const handler = serverless(app);
