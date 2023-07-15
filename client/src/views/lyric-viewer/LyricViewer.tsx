@@ -83,6 +83,7 @@ const LyricViewer = () => {
     }
   };
 
+  // Lyric lines need to be "cleaned" as they come in with line breaks, spacing, etc..
   const cleanLyrics = (lyricsArray: string[]): string[] => {
     lyricsArray.forEach((item: string, index: number) => {
       const regex = /[a-z][A-Z]/g;
