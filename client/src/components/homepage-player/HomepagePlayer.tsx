@@ -15,10 +15,7 @@ const HomepagePlayer = () => {
   const [songUrl, setSongUrl] = useState('');
   const progressContainer = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const [isDailySongFetchError, setIsDailySongFetchError] = useState<boolean>(false);
-  
-  let lyrics = {};
 
   type Song = {
     title: string,
