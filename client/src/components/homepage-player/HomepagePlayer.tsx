@@ -17,22 +17,52 @@ const HomepagePlayer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [isDailySongFetchError, setIsDailySongFetchError] = useState<boolean>(false);
+  
+  let lyrics = {};
+
+  type Song = {
+    title: string,
+    artist: string,
+    cover: string,
+    audio: string,
+    url: string,
+  }
 
   useEffect(() => {
     fetchDailySong();
   }, []);
 
   const fetchDailySong = async () => {
+    let song: Song = JSON.parse(localStorage.getItem('song') as string);
+
+    if (song) {
+      setSongTitle(song.title);
+      setSongArtist(song.artist);
+      setSongCover(song.cover);
+      setSongUrl(song.url);
+      setAudioSrc(song.audio);
+      setIsLoading(false);
+      return;
+    }
+
     await axios
       .get(`${import.meta.env.VITE_API_URL_PREFIX}spotify/getDailySong`)
       .then((response) => {
-        setSongTitle(response.data['track']['track']['name']);
-        setSongArtist(response.data['track']['track']['artists'][0]['name']);
-        setSongCover(
-          response.data['track']['track']['album']['images'][0]['url']
-        );
-        setAudioSrc(response.data['track']['track']['preview_url']);
-        setSongUrl(response.data['track']['track']['external_urls']['spotify']);
+        const song: Song = {
+          title: response.data['track']['track']['name'],
+          artist: response.data['track']['track']['artists'][0]['name'],
+          cover: response.data['track']['track']['album']['images'][0]['url'],
+          audio: response.data['track']['track']['preview_url'],
+          url: response.data['track']['track']['external_urls']['spotify'],
+        };
+
+        localStorage.setItem('song', JSON.stringify(song));
+        setSongTitle(song.title);
+        setSongArtist(song.artist);
+        setSongCover(song.cover);
+        setSongUrl(song.url);
+        setAudioSrc(song.audio);
+
         setTimeout(() => {
           setIsLoading(false);
         }, 400);
