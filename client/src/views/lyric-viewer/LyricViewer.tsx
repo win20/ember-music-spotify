@@ -155,6 +155,7 @@ const LyricViewer = () => {
       </div>
 
       {lyricsArray && <LyricsDisplay lyricsArray={lyricsArray} />}
+      <div className='spacer'></div>
     </>
   );
 };

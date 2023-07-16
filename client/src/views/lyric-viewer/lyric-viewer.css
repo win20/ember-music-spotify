@@ -65,4 +65,8 @@
     width: 50px;
     margin-left: 10px;
   }
+
+  .spacer {
+    padding-bottom: 20px;
+  }
 }
